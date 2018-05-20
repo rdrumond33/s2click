@@ -16,7 +16,7 @@ class CreateDonorsTable extends Migration
         Schema::create('donors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome',100);
-            $table->string('cpfCnpj',50);
+            $table->string('cpfCnpj',50)->unique();
             $table->string('email',150);
             $table->string('endereco',150);
             $table->string('telefone',20);

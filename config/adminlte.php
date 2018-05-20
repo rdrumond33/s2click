@@ -30,9 +30,10 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>S2</b>Click',
 
-    'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<b>S</b>2',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -45,7 +46,7 @@ return [
     |
     */
 
-    'skin' => 'blue',
+    'skin' => 'blue-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,42 +107,41 @@ return [
     | layout. The 'can' is a filter on Laravel's built in Gate functionality.
     |
     */
-
     'menu' => [
-        'MAIN NAVIGATION',
         [
-            'text' => 'Blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text'        => 'Doadores',
+            'url'         => 'donor',
+            'icon'        => 'list-ul',
         ],
         [
-            'text'        => 'Pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text'        => 'Paciente',
+            'url'         => 'patient',
+            'icon'        => 'list-ul',
         ],
-        'ACCOUNT SETTINGS',
+        'Configuração',
         [
-            'text' => 'Profile',
+            'text' => 'Usuario',
             'url'  => 'admin/settings',
             'icon' => 'user',
+            'submenu' => [
+                [
+                    'text' => 'Mudar senha',
+                    'url'  => 'admin/settings',
+                    'icon' => 'lock',
+                ],
+            ],
+
         ],
         [
-            'text' => 'Change Password',
-            'url'  => 'admin/settings',
-            'icon' => 'lock',
-        ],
-        [
-            'text'    => 'Multilevel',
+            'text'    => 'Relatorio/Grafico',
             'icon'    => 'share',
             'submenu' => [
                 [
-                    'text' => 'Level One',
+                    'text' => 'Grafico',
                     'url'  => '#',
                 ],
                 [
-                    'text'    => 'Level One',
+                    'text'    => 'relatorio',
                     'url'     => '#',
                     'submenu' => [
                         [
@@ -164,25 +164,11 @@ return [
                         ],
                     ],
                 ],
-                [
-                    'text' => 'Level One',
-                    'url'  => '#',
-                ],
+
             ],
         ],
-        'LABELS',
-        [
-            'text'       => 'Important',
-            'icon_color' => 'red',
-        ],
-        [
-            'text'       => 'Warning',
-            'icon_color' => 'yellow',
-        ],
-        [
-            'text'       => 'Information',
-            'icon_color' => 'aqua',
-        ],
+
+
     ],
 
     /*

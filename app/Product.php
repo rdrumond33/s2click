@@ -5,11 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Stock extends Model
+class Product extends Model
 {
 
-
     protected $fillable = [
+        'id',
         'nome',
         'marca',
         'categoria',
@@ -17,14 +17,24 @@ class Stock extends Model
         'amount',
 
     ];
+    protected $hidden =['_token'];
 
     //criando o relacinamento may to may entre as tabelas doadores e estoques
-    public function donors(): BelongsToMany{
+    public function donors():BelongsToMany{
+
         return $this->belongsToMany(Donor::class);
+
     }
 
-    public function patients(): BelongsToMany{
-        return $this->belongsToMany(Patient::class);
+
+    public function addProduct($dados){
+
+        $this->insert($dados);
+
     }
+
+
+
+
 
 }

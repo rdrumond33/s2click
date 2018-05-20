@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Donor;
+use App\Product;
 use Illuminate\Http\Request;
 
 class DonorController extends Controller
 {
+    private $produtoModel;
+    private $doadorModel;
+
+    function __construct(Product $produto,Donor $doador)
+    {
+        $this->produtoModel= $produto;
+        $this->doadorModel=$doador;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +24,8 @@ class DonorController extends Controller
      */
     public function index()
     {
-        $donor = Donor::all();
-        return view('Donor.index', compact('donor'));
+        $doadores = $this->doadorModel->getDoadores();
+        return view('Donor.index', compact('doadores'));
     }
 
     /**
@@ -25,7 +35,8 @@ class DonorController extends Controller
      */
     public function create()
     {
-        return view('Donor.create');
+        $doadores = $this->doadorModel->all();
+        return view('Donor.create', compact('doadores'));
     }
 
     /**
@@ -34,13 +45,11 @@ class DonorController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Donor $doador)
+    public function store(Request $request)
     {
-        $doador->addDonor($request->except('_token'));
-
+        $this->doadorModel->addDonor($request->except('_token'));
         return view('Donor.index');
     }
-
 
     /**
      * Display the specified resource.
@@ -50,7 +59,12 @@ class DonorController extends Controller
      */
     public function show($id)
     {
-        //
+        $doador=$this->produtoModel->donors()->find(2);
+       // dd($doador);
+
+        $donor = Donor::find($id);
+        //$this->doadorProduto->get
+        return view('Donor.show', compact('donor'));
     }
 
     /**

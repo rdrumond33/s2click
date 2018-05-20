@@ -14,15 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/donor',['uses'=>'DonorController@index','as']);
-Route::get('/donor','DonorController@index')->name('Donor.home');
+
+Route::get('/donor','DonorController@index')->name('Donor.index');
 Route::get('/donor/create','DonorController@create')->name('Donor.create');
-Route::post('/donor','DonorController@store')->name('Donor.store');
-Route::post('/donor','DonorController@store')->name('Donor.store');
+Route::post('/donor/create','DonorController@store')->name('Donor.store');
+Route::get('/donor/{id}/Product','DonorController@show')->name('Donor.show');
 
 
-Route::get('/stock','StockController@index');
-Route::get('/stock','StockController@create')->name('Stock.create');
+Route::get('/produto','ProductController@index')->name('Product.index');
+Route::get('/product/create/{id}','ProductController@create')->name('Product.create');
+Route::post('/product/create/{id}','ProductController@store')->name('Product.store');
 
 
 
