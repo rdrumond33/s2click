@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
+    public $timestamps=true;
 
     protected $fillable = [
         'id',
@@ -15,21 +16,34 @@ class Product extends Model
         'categoria',
         'descricaoProduto',
         'amount',
+        'beforeAmount'
 
     ];
-    protected $hidden =['_token'];
+
+    protected $hidden = [
+        'remember_token',
+    ];
 
     //criando o relacinamento may to may entre as tabelas doadores e estoques
-    public function donors():BelongsToMany{
+    public function donors(){
 
         return $this->belongsToMany(Donor::class);
+
+    }
+
+    public function patients(){
+
+        return $this->belongsToMany(Patient::class)
+            ->as('dados')
+            ->withPivot('quantidadeDoada')
+            ->withTimestamps();
 
     }
 
 
     public function addProduct($dados){
 
-        $this->insert($dados);
+        $this->create($dados);
 
     }
 

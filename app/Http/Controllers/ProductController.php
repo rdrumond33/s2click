@@ -6,6 +6,8 @@ use App\Donor;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use function MongoDB\BSON\toJSON;
+use function PHPSTORM_META\type;
 
 class ProductController extends Controller
 {
@@ -13,11 +15,14 @@ class ProductController extends Controller
 
     private $produtoModel;
     private $doadorModel;
+    private $quantidadetotal;
+
 
     function __construct(Product $produto, Donor $doador)
     {
         $this->produtoModel = $produto;
         $this->doadorModel = $doador;
+        $this->quantidadetotal = 0;
     }
 
     /**
@@ -37,9 +42,9 @@ class ProductController extends Controller
      */
     public function create($id)
     {
-        $doador = $this->doadorModel->getDoadores()->find($id);
-        return view('Product.create', compact('doador'));
+
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -47,18 +52,36 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $idDoador)
+    public function store(Request $request, $id)
     {
-        $this->produtoModel->addProduct($request->except('_token'));
-        $idProduct = DB::table('products')->max('id');
 
-        //relacionamento
-        $doador = $this->doadorModel->find($idDoador);
-        $doador->products()->attach($idProduct);
+        $this->produtoModel->addProduct($request->all());
+
+        $doador = $this->doadorModel->getDoadores()->find($id);
+
+        return view('Donor.show', compact('doador'));
+    }
 
 
+    public function RelacinarDonorProduct(Request $request, $idDoador)
+    {
+        // request esta vindo o id e quantidade
+        $quantidade = $request->amount;
 
-        return view('Product.create', compact('doador'));
+        //pego a quantidade da tabela
+        $quantidadeTabelaProduto = Product::all()->find($request->state)->amount;
+
+        // pego qual dodador fez a doação
+        $doador = Donor::all()->find($idDoador);
+
+        // faço o cadastro do produto
+        $produtos = Product::all()->find($request->state)->update([
+            'amount' => $quantidadeTabelaProduto + $quantidade
+        ]);
+
+        $doador->products()->attach($request->state, ['quantidade' => $request->amount]);
+
+        return view('Donor.show', compact('doador'));
     }
 
     /**

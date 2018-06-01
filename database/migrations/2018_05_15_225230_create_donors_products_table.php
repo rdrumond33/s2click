@@ -14,8 +14,14 @@ class CreateDonorsProductsTable extends Migration
     public function up()
     {
         Schema::create('donor_product', function (Blueprint $table) {
+
             $table->unsignedInteger('donor_id');
             $table->unsignedInteger('product_id');
+
+            $table->integer('quantidade')->default(0);
+            $table->timestamps();
+
+
 
             $table->foreign('donor_id')
                 ->references('id')->on('donors')
@@ -24,6 +30,7 @@ class CreateDonorsProductsTable extends Migration
             $table->foreign('product_id')
                 ->references('id')->on('products')
                 ->onDelete('cascade');
+
 
         });
     }

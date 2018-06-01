@@ -13,9 +13,13 @@ class CreateProductsPatientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_patient', function (Blueprint $table) {
+        Schema::create('patient_product', function (Blueprint $table) {
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('patient_id');
+
+            $table->integer('quantidadeDoada')->default(0);
+            $table->timestamps();
+
 
             $table->foreign('product_id')
                 ->references('id')->on('products')

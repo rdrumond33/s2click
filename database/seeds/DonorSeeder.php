@@ -19,7 +19,7 @@ class DonorSeeder extends Seeder
                 'endereco'=>"rua $i",
                 'telefone' =>"3133333",
                 'email'=>"Teste$i@hotmail.com",
-                'cpfCnpj'=>"10102020$i",
+                'cpf'=>"10102020$i",
                 'tipo'=>'esporadico'
             ];
 

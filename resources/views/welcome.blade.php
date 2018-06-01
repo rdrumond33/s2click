@@ -61,7 +61,7 @@
             }
 
             .m-b-md {
-                margin-bottom: 30px;
+                margin-bottom: 20px;
             }
         </style>
     </head>
@@ -81,14 +81,12 @@
             <div class="content">
                 <div class="title m-b-md">
                    <p>Projeto PI</p>
+                    <p>Grupo: Rodrigo Drumond de Puala , Alan, Jao ,Adeison, Lais, Diogenes Markos </p>
                     <p>Bem vindo ao s2click</p>
-                    <p>Produtos disponiveis</p>
+
                 </div>
 
-                <div class="links">
-                    <a href="#">contatos</a>
-                    <a href="#">Sobre nos</a>
-                    </div>
+
             </div>
         </div>
     </body>

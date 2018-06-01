@@ -6,15 +6,16 @@ use App\Donor;
 use App\Product;
 use Illuminate\Http\Request;
 
+
 class DonorController extends Controller
 {
     private $produtoModel;
     private $doadorModel;
 
-    function __construct(Product $produto,Donor $doador)
+    function __construct(Product $produto, Donor $doador)
     {
-        $this->produtoModel= $produto;
-        $this->doadorModel=$doador;
+        $this->produtoModel = $produto;
+        $this->doadorModel = $doador;
     }
 
     /**
@@ -26,6 +27,24 @@ class DonorController extends Controller
     {
         $doadores = $this->doadorModel->getDoadores();
         return view('Donor.index', compact('doadores'));
+    }
+
+    public function apiDonor()
+    {            $donors = Donor::all();
+
+        return datatables()->of($donors)
+            ->addColumn('action', function ($donor){
+                return '<a href="#"  onclick="teste()" "class="btn btn-xs btn-outline-info produto" id="'.$donor->id.'" style="margin-right: 10px"><i class="fab fa-product-hunt" style=" font-size: 2em" ></i> Produto</a>'.
+                    '<a href="#" onclick="teste()" class="btn btn-xs btn-outline-info " ><i class="fas fa-edit" style="font-size: 2em"></i> Editar</a>'.
+                    '<a href="#" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" style="font-size: 2em"></i> Deletar</a>'
+                    ;
+            })->toJson();
+
+
+//        $doadores = Donor::select(['id','nome','endereco','telefone','email','tipo']);
+
+        //      return Datatables::of($doadores)->make();
+
     }
 
     /**
@@ -47,7 +66,9 @@ class DonorController extends Controller
      */
     public function store(Request $request)
     {
-        $this->doadorModel->addDonor($request->except('_token'));
+
+        $this->doadorModel->addDonor($request->all());
+
         return view('Donor.index');
     }
 
@@ -59,12 +80,9 @@ class DonorController extends Controller
      */
     public function show($id)
     {
-        $doador=$this->produtoModel->donors()->find(2);
-       // dd($doador);
+        $doador = $this->doadorModel->getDoadores()->find($id);
 
-        $donor = Donor::find($id);
-        //$this->doadorProduto->get
-        return view('Donor.show', compact('donor'));
+        return view('Donor.show', compact('doador'));
     }
 
     /**

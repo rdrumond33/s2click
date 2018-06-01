@@ -16,7 +16,26 @@ class Patient extends Model
     ];
 
     //criando o relacinamento may to may entre as tabelas doadores e estoques
-    public function stocks(): BelongsToMany{
-        return $this->belongsToMany(Stock::class);
+    public function products(): BelongsToMany{
+
+        return $this->belongsToMany(Product::class)
+            ->as('dados')
+            ->withPivot('quantidadeDoada')
+            ->withTimestamps();
+    }
+
+
+    public function addPaciente($dados){
+        $this->create($dados);
+    }
+
+    public function allPaciente(){
+        return $this->all();
+    }
+
+    public function getData(){
+
+        dd($this->allPaciente());
+
     }
 }

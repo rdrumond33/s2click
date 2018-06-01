@@ -18,7 +18,7 @@ class CreatePatientsTable extends Migration
             $table->increments('id');
             $table->string('nome');
             $table->string('responsavel')->nullable();
-            $table->boolean('especiais');
+            $table->enum('especiais', ['sim', 'nao']);
             $table->string('necessidade')->nullable();
             $table->text('receita')->nullable();
             $table->timestamps();

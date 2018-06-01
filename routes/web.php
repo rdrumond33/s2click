@@ -15,22 +15,34 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('api/donor','DonorController@apiDonor')->name('api.Donor');
+
+
 Route::get('/donor','DonorController@index')->name('Donor.index');
+Route::get('/donor/tabela','DonorController@getDataTable')->name('Donor.tabela');
+
 Route::get('/donor/create','DonorController@create')->name('Donor.create');
 Route::post('/donor/create','DonorController@store')->name('Donor.store');
-Route::get('/donor/{id}/Product','DonorController@show')->name('Donor.show');
+Route::get('/donor/product/create/{id}','DonorController@show')->name('Donor.Product.Show');
 
 
-Route::get('/produto','ProductController@index')->name('Product.index');
+
+
 Route::get('/product/create/{id}','ProductController@create')->name('Product.create');
-Route::post('/product/create/{id}','ProductController@store')->name('Product.store');
+Route::post('/product/create/{id}','ProductController@RelacinarDonorProduct')->name('Product.RelacinarDonorProduct');
+Route::post('/donor/product/create/{id}','ProductController@store')->name('Product.store');
 
 
 
 
 
-Route::get('/patient','PatientController@index');
+Route::get('/patient','PatientController@index')->name('Patient.index');
+Route::post('/patient','PatientController@store')->name('Patient.store');
+Route::get('/patient/{id}/Doando','PatientController@doando')->name('Patient.doando');
+Route::post('/patient/{id}/Doando','PatientController@doandoProduto')->name('Patient.relacionando');
 
+//api
+Route::get('/patient/pacientes','PatientController@getDatable')->name('Patient.Api');
 
 
 

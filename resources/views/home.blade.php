@@ -23,9 +23,17 @@
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>44</h3>
+                    <h3>{{DB::table('products')->select('amount')->count()}}</h3>
 
-                    <p>Produtos em stock</p>
+                    <?php
+                    $teste = 0;
+                    foreach (\App\Product::all() as $produto) {
+                        $teste += $produto->amount;
+                    }
+                    ?>
+
+
+                    <h4>Produtos cadastrados: {{$teste}} </h4>
                 </div>
                 <div class="icon">
                     <i class="fa fa-shopping-cart"></i>
@@ -105,7 +113,7 @@
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tabela</h3>
+                    <h3 class="box-title">Pacientes</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -117,33 +125,29 @@
                     </div>
                 </div>
                 <div class="box-body" style="">
-                    <table id="" class="table table-striped table-bordered" style="width:100%">
+                    <table id="tablePaciente" class="display" style="width:100%">
                         <thead>
                         <tr>
-                            <th>id</th>
-                            <th>Nome Usuario</th>
-                            <th>Email</th>
+                            <th>nome</th>
+                            <th>responsavel</th>
+                            <th>especiais</th>
+                            <th>necessidade</th>
+                            <th>receita</th>
+                            <th>ultimaDoacao</th>
 
-                            <th>
-                                <a href="#">
-                                    <i type="button" class="fa fa-plus"></i>
-                                </a>
-                            </th>
+                            <th>Cadastrado</th>
+                            <th>Acao</th>
+
+
                         </tr>
-                        <tfoot>
-                        @foreach(\App\User::all() as $user)
-                            <tr>
-                                <td>{{$user->id}}</td>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->email}}</td>
+                        </thead>
+                        <tfoot></tfoot>
 
-                            </tr>
-                        @endforeach
-                        </tfoot>
+
                     </table>
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer" style="">
+                <div class="box-footer" style="margin-left: ">
                     <div class="box-footer clearfix">
                         <ul class="pagination pagination-sm no-margin pull-right">
                             <li><a href="#">«</a></li>
@@ -162,9 +166,39 @@
     </div>
 
 
+
+
+
 @stop
 
 @section('js')
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('#tablePaciente').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{route('Patient.Api')}}",
+                columns: [
+
+                    {data: 'nome'},
+                    {data: 'responsavel'},
+                    {data: 'especiais'},
+                    {data: 'necessidade'},
+                    {data: 'receita'},
+                    {data: 'ultimaDoacao'},
+                    {data: 'created_at'},
+                    {data: 'action', orderable: false, searchable: false}
+
+                ],
+
+            });
+        });
+
+    </script>
 
     <script>
         var ctx = document.getElementById("areaChart").getContext('2d');

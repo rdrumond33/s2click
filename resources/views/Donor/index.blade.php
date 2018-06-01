@@ -8,61 +8,31 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="box">
-            <div class="box-header">
-                <h2 class="h2">Tabela de doadores </h2>
-            </div>
-            <div class="box-body">
+    <div class="box">
+        <div class="box-header">
+            <h2 class="h2">Tabela de doadores </h2>
+        </div>
+        <div class="box-body">
+            <button type="button" class="fa fa-plus" aria-hidden="true" data-toggle="modal"
+                                data-target="#AdicionarDoador"></button>
 
-                <table id="" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Cpf/Cnpj</th>
-                        <th>Endereço</th>
-                        <th>TElefone</th>
-                        <th>E-mail</th>
-                        <th>Tipo</th>
+            <table id="tabelaDoadores" class="display"  style="width:100%">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Endereço</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>Tipo</th>
+                    <th></th>
 
-                        <th>
-                            <button type="button" class="fa fa-plus" aria-hidden="true" data-toggle="modal"
-                                    data-target="#AdicionarDoador"></button>
-
-                        </th>
-                    </tr>
-                    <tfoot>
-                    @foreach(\App\Donor::all() as $donor)
-                        <tr>
-
-                            <td><a class="btn-link" href="{{route('Product.create',$donor->id)}}">{{$donor->nome}}</a>
-                            </td>
-                            <td>{{$donor->endereco}}</td>
-                            <td>{{$donor->telefone}}</td>
-                            <td>{{$donor->email}}</td>
-                            <td>{{$donor->tipo}}</td>
-                            <td>
-
-
-                                <a href="{{route('Product.create',$donor->id)}}"><i class="fa fa-product-hunt"
-                                                                                    aria-hidden="true"></i>
-                                </a>
-                                <a href="#" type="button" value="Editar"
-                                   class="btn btn-warning "><i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-
-                                <a href="#" type="button" value="Editar"
-                                   class="btn btn-success "><i class="fa fa-pencil" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-
-                    @endforeach
-                    </tfoot>
-                </table>
-            </div>
+                </tr>
+                <tfoot></tfoot>
+            </table>
         </div>
     </div>
+
 
 
     <!-- Modal -->
@@ -89,7 +59,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="cpfCnpj">Cpf/Cnpj</label>
-                                <input type="text" name="cpfCnpj" class="form-control" id="cpfCnpj">
+                                <input type="text" name="cpf" class="form-control" id="cpfCnpj">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="email">Email</label>
@@ -115,7 +85,7 @@
                                     <select class="form-control" name="tipo" id="tipo">
                                         <option>Mensal</option>
                                         <option>devexenquanto</option>
-                                     </select>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
@@ -131,10 +101,40 @@
                                     </button>
                                 </div>
                             </div>
-
+                        </div>
                     </form><!-- Fim form -->
                 </div>
             </div> <!-- Fim modal-body -->
         </div>
     </div> <!-- Fim Modal -->
+@stop
+
+@section('js')
+
+    <script type="text/javascript">
+
+       $(document).ready(function () {
+            var table = $('#tabelaDoadores').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive:true,
+                ajax: "{{route('api.Donor')}}",
+                columns: [
+                    {data: 'nome', name: 'nome'},
+                    {data: 'cpf', name: 'cpf'},
+                    {data: 'endereco', name: 'endereco'},
+                    {data: 'telefone', name: 'telefone'},
+                    {data: 'email', name: 'email'},
+                    {data: 'tipo', name: 'tipo'},
+                    {data: 'action', name: 'action', ordernable: false, searchable: false}
+                ],
+           
+            });
+     });
+
+
+
+
+    </script>
+
 @stop

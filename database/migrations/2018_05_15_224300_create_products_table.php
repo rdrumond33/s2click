@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('marca');
             $table->string('categoria');
             $table->text('descricaoProduto')->nullable();
-            $table->integer('amount');
-            $table->integer('amoutBefore')->default(0);
+            $table->unsignedInteger('amount')->default(0);
+            $table->unsignedInteger('beforeAmount')->default(0);
 
 
             $table->rememberToken();//guarda o tokem
