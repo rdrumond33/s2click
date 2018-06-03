@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Donor;
 use App\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use function MongoDB\BSON\toJSON;
-use function PHPSTORM_META\type;
 
 class ProductController extends Controller
 {
@@ -40,9 +37,10 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
 
+        return view('Product.create');
     }
 
 
@@ -62,27 +60,6 @@ class ProductController extends Controller
         return view('Donor.show', compact('doador'));
     }
 
-
-    public function RelacinarDonorProduct(Request $request, $idDoador)
-    {
-        // request esta vindo o id e quantidade
-        $quantidade = $request->amount;
-
-        //pego a quantidade da tabela
-        $quantidadeTabelaProduto = Product::all()->find($request->state)->amount;
-
-        // pego qual dodador fez a doação
-        $doador = Donor::all()->find($idDoador);
-
-        // faço o cadastro do produto
-        $produtos = Product::all()->find($request->state)->update([
-            'amount' => $quantidadeTabelaProduto + $quantidade
-        ]);
-
-        $doador->products()->attach($request->state, ['quantidade' => $request->amount]);
-
-        return view('Donor.show', compact('doador'));
-    }
 
     /**
      * Display the specified resource.
@@ -128,4 +105,49 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function RelacinarDonorProduct(Request $request, $idDoador)
+    {
+        // request esta vindo o id e quantidade
+        $quantidade = $request->amount;
+
+        //pego a quantidade da tabela
+        $quantidadeTabelaProduto = Product::all()->find($request->state)->amount;
+
+        // pego qual dodador fez a doação
+        $doador = Donor::all()->find($idDoador);
+
+        // faço o cadastro do produto
+        $produtos = Product::all()->find($request->state)->update([
+            'amount' => $quantidadeTabelaProduto + $quantidade
+        ]);
+
+        $doador->products()->attach($request->state, ['quantidade' => $request->amount]);
+
+        return view('Donor.show', compact('doador'));
+    }
+
+
+    public function getDatable()
+    {
+
+
+        $pacientes = Product::all();
+
+        return datatables()->of($pacientes)
+            ->addColumn('action', function ($pacientes) {
+                return '<a href="#" onclick="editForm('.$pacientes->id.')" class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt"></i> Editar</a>' .
+                    '<a href="#" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" style="font-size: 2em"></i> </a>';
+            })
+            ->toJson();
+
+    }
+
+    public function teste(Request $request)
+    {
+
+        dd($request->all());
+    }
+
+
 }

@@ -3,137 +3,202 @@
 @section('title', 'S2Click|Doadores')
 
 @section('content_header')
-    <h1>Doadores</h1>
+    <section class="content-header">
+        <h1>
+            Doadores
+            <small>tabela</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+            <li class="active">Tabela Doador</li>
+        </ol>
+    </section>
 @stop
 
 @section('content')
-
-    <div class="box">
-        <div class="box-header">
-            <h2 class="h2">Tabela de doadores </h2>
-        </div>
-        <div class="box-body">
-            <button type="button" class="fa fa-plus" aria-hidden="true" data-toggle="modal"
-                                data-target="#AdicionarDoador"></button>
-
-            <table id="tabelaDoadores" class="display"  style="width:100%">
-                <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Endereço</th>
-                    <th>Telefone</th>
-                    <th>E-mail</th>
-                    <th>Tipo</th>
-                    <th></th>
-
-                </tr>
-                <tfoot></tfoot>
-            </table>
-        </div>
-    </div>
-
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="AdicionarDoador">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Adicionar doador</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    <div class="row"><!-- inicio da Row -->
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Doadores</h3>
+                    <a onclick="addForm()" class="btn btn-default" style="float: right"><i
+                                class="fas fa-plus-circle"></i>Adicionar</a>
                 </div>
-
-                <div class="modal-body">
-
-                    <form action="{{route('Donor.store')}}" method="POST">
-
-
-                        @csrf
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="nome">Nome</label>
-                                <input type="text" name="nome" class="form-control" id="nome">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="cpfCnpj">Cpf/Cnpj</label>
-                                <input type="text" name="cpf" class="form-control" id="cpfCnpj">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="email">Email</label>
-                                <input type="text" name="email" class="form-control" id="email">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="tabelaDoadores" class="table table-bordered" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>CPF</th>
+                                        <th>Endereço</th>
+                                        <th>Telefone</th>
+                                        <th>E-mail</th>
+                                        <th>Tipo</th>
+                                        <th>cadastrado</th>
+                                        <th>acao</th>
+                                    </tr>
+                                    <tfoot></tfoot>
+                                </table>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="endereco">endereco</label>
-                                    <input type="text" name="endereco" class="form-control" id="endereco">
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label for="telefone">Telefone</label>
-                                    <input type="text" name="telefone" class="form-control" id="telefone">
-                                </div>
-
-
-                                <div class="form-group col-md-4">
-
-                                    <label for="tipo">Tipo</label>
-                                    <select class="form-control" name="tipo" id="tipo">
-                                        <option>Mensal</option>
-                                        <option>devexenquanto</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="modal-footer">
-
-                                    <button type="submit" class="btn btn-primary">Salvar</button>
-
-                                    <button type="button" class="btn btn-warning" href="{{route('Donor.index')}}">Voltar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form><!-- Fim form -->
+                    </div>
+                    <!-- /.box-body -->
                 </div>
-            </div> <!-- Fim modal-body -->
+            </div>
         </div>
-    </div> <!-- Fim Modal -->
+        @include('Donor.form')
+
+    </div> {{--fim da row--}}
+
+
+
+
 @stop
 
 @section('js')
 
+
     <script type="text/javascript">
 
-       $(document).ready(function () {
+        $(document).ready(function () {
+
             var table = $('#tabelaDoadores').DataTable({
                 processing: true,
                 serverSide: true,
-                responsive:true,
-                ajax: "{{route('api.Donor')}}",
+                responsive: true,
+                info: true,
+                autoWidth: false,
+
+                ajax: "{{route('donor.api.getDonor')}}",
                 columns: [
-                    {data: 'nome', name: 'nome'},
-                    {data: 'cpf', name: 'cpf'},
-                    {data: 'endereco', name: 'endereco'},
-                    {data: 'telefone', name: 'telefone'},
-                    {data: 'email', name: 'email'},
-                    {data: 'tipo', name: 'tipo'},
+                    {data: 'nome'},
+                    {data: 'cpf'},
+                    {data: 'endereco'},
+                    {data: 'telefone'},
+                    {data: 'email'},
+                    {data: 'tipo'},
+                    {data: 'created_at'},
+
                     {data: 'action', name: 'action', ordernable: false, searchable: false}
                 ],
-           
+
             });
-     });
 
 
+        });
 
+
+        function deletDonor(id) {
+            var popup = confirm("Deseja mesmo deletar");
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+            if (popup == true) {
+
+                $.ajax({
+                    url: "{{url('donor')}}" + '/' + id,
+                    type: "POST",
+                    data: {'_method': 'DELETE', '_token': csrf_token},
+                    success: function (data) {
+                        $('#tabelaDoadores').DataTable().ajax.reload();
+                        console.log(data);
+                    },
+                    error: function () {
+                        alert("ERRO")
+                    }
+
+                });
+
+
+            }
+
+
+        }
+
+
+        $(function () {
+            $('#modal-form form').validator().on('submit', function (e) {
+
+                if (!e.isDefaultPrevented()) {
+                    var id = $('id').val();
+                    if (save_method == 'add') url = "{{url('donor')}}";
+                    else url = "{{url('donor'.'/')}}" + id;
+                    $, ajax({
+                        url: url,
+                        type: "POST",
+                        data: $('#modal-form').serialize(),
+                        success: function ($data) {
+                            $('#modal-form').modal('hide');
+                            $('#tabelaDoadores').DataTable().ajax.reload();
+
+                        },
+                        error: function () {
+                            alert('Erro');
+
+                        }
+                    });
+                }
+            });
+
+        });
+
+        function addForm() {
+            save_method = 'add';
+            console.log(save_method);
+            $('input[name=_method]').val('POST');
+            $('#modal-form').modal('show');
+            $('#modal-form form')[0].reset();
+            $('.modal-title').text('Adicionar Doador');
+        }
+
+
+        function editForm(id) {
+
+            save_method = 'edit';
+            $('input[name=_method]').val('PUT');
+            $('#modal-form form')[0].reset();
+            $.ajax({
+                url: "{{url('donor')}}" + '/' + id + "/edit",
+                type: "GET",
+                dataType: "JSON",
+                success: function (data) {
+                    $('#modal-form').modal('show');
+                    $('.modal-title').text('Editar Doador');
+
+                    $('#id').val(data.id);
+                    $('#nome').val(data.nome);
+                    $('#cpf').val(data.cpf);
+                    $('#email').val(data.email);
+                    $('#endereco').val(data.endereco);
+                    $('#telefone').val(data.telefone);
+                    $('#tipo').val(data.tipo);
+
+                },
+                error: function () {
+                    alert("Nothin DATA")
+                }
+            });
+
+        }
+
+        function teste(id) {
+                        var url ="/donor/product/create/" + id;
+
+            $.ajax({
+                url:url,
+                type: "GET",
+
+            })
+
+
+        }
 
     </script>
 

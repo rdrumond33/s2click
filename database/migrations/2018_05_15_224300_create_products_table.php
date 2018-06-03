@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('beforeAmount')->default(0);
 
 
-            $table->rememberToken();//guarda o tokem
+            //$table->rememberToken();//guarda o tokem
             $table->timestamps();//guarada o tempo
             $table->softDeletes();//ser for apagado sera escondido
         });

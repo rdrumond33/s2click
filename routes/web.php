@@ -14,22 +14,22 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('api/donor','DonorController@apiDonor')->name('api.Donor');
 
 
-Route::get('/donor','DonorController@index')->name('Donor.index');
+Route::resource('donor','DonorController');
 Route::get('/donor/tabela','DonorController@getDataTable')->name('Donor.tabela');
-
-Route::get('/donor/create','DonorController@create')->name('Donor.create');
-Route::post('/donor/create','DonorController@store')->name('Donor.store');
 Route::get('/donor/product/create/{id}','DonorController@show')->name('Donor.Product.Show');
 
 
 
 
-Route::get('/product/create/{id}','ProductController@create')->name('Product.create');
+Route::get('/produto/adicionar','ProductController@create')->name('Product.create');
+
 Route::post('/product/create/{id}','ProductController@RelacinarDonorProduct')->name('Product.RelacinarDonorProduct');
+
 Route::post('/donor/product/create/{id}','ProductController@store')->name('Product.store');
 
 
@@ -42,10 +42,22 @@ Route::get('/patient/{id}/Doando','PatientController@doando')->name('Patient.doa
 Route::post('/patient/{id}/Doando','PatientController@doandoProduto')->name('Patient.relacionando');
 
 //api
-Route::get('/patient/pacientes','PatientController@getDatable')->name('Patient.Api');
+
+Route::get('/donor/api/get','ApiController@getDonor')->name('donor.api.getDonor');
+Route::get('/donor/api/get/product/{id}','ApiController@getDonorProduct')->name('donor.api.getDonorProduct');
+
+//Route::get('/donor/api','DonorController@apiDonor')->name('api.Donor');
 
 
 
-Auth::routes();
+Route::get('/patient/api','PatientController@getDatable')->name('Patient.Api');
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/Produto/api','ProductController@getDatable')->name('Produto.Api');
+Route::get('/Produto/api/teste','ProductController@teste')->name('teste.Api');
+
+
+
+
+
+

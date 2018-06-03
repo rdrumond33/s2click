@@ -12,7 +12,7 @@
 
         <div class="form">
 
-            <form action="{{route('Donor.store')}}" method="POST">
+            <form action="{}" method="POST">
 
                 @csrf
                 <div class="form-group">
@@ -51,7 +51,7 @@
 
                         <button type="submit" class="btn btn-primary">Salvar</button>
 
-                        <button type="button" class="btn btn-warning" href="{{route('Donor.index')}}">Voltar</button>
+                        <button type="button" class="btn btn-warning" href="{{route('donor.index')}}">Voltar</button>
                     </div>
                 </div><!-- Fim form-group -->
 

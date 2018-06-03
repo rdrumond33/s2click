@@ -129,7 +129,7 @@
                                     <button type="submit" class="btn btn-primary">Salvar</button>
 
                                     <button type="button" class="btn btn-warning"
-                                            href="{{route('Donor.index')}}">
+                                            href="{{route('donor.index')}}">
                                         Voltar
                                     </button>
                                 </div>
@@ -151,6 +151,7 @@
 
         $(document).ready(function () {
             $('.js-example-basic-single').select2({
+
                 placeholder: 'Selecione o Produto'
             });
         })

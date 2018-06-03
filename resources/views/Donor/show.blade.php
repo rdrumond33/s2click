@@ -29,7 +29,8 @@
                             <div class="col-sm-6">
                                 <select class="js-example-basic-single" name="state" style="width: 100%">
                                     @foreach(\App\Product::all() as $produto)
-                                        <option value="{{$produto->id}}">{{$produto->nome}}:{{$produto->amount}}</option>
+                                        <option value="{{$produto->id}}">{{$produto->nome}}
+                                            :{{$produto->amount}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -83,30 +84,15 @@
                     </th>
 
 
-                    <table id="" class="table table-striped table-bordered" style="width:100%">
+                    <table id="tabelaDoacao" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                         <tr>
-                            <th>id</th>
                             <th>Nome produto</th>
-                            <th>marca</th>
-                            <th>categoria</th>
-                            <th>descricaoProduto</th>
                             <th>quantidade</th>
                             <th>data</th>
                         </tr>
                         <tfoot>
-                        @foreach($doador->products as $produto)
-                            <tr>
 
-                                <td>{{$produto->id}}</td>
-                                <td>{{$produto->nome}}</td>
-                                <td>{{$produto->marca}}</td>
-                                <td>{{$produto->categoria}}</td>
-                                <td>{{$produto->descricaoProduto}}</td>
-                                <td>{{$produto->dados->quantidade}}</td>
-
-                            </tr>
-                        @endforeach
                         </tfoot>
                     </table>
                 </div>
@@ -165,10 +151,11 @@
 
                                     <button type="submit" class="btn btn-primary">Salvar</button>
 
-                                    <button type="button" class="btn btn-warning" href="{{route('Donor.index')}}">Voltar
+                                    <button type="button" class="btn btn-warning" href="{{route('donor.index')}}">Voltar
                                     </button>
                                 </div>
                             </div>
+                        </div>
 
                     </form><!-- Fim form -->
                 </div>
@@ -176,17 +163,30 @@
         </div>
     </div> <!-- Fim Modal -->
 
-
 @stop
 
 @section('js')
     <script>
 
-        // In your Javascript (external .js resource or <script> tag)
         $(document).ready(function () {
-            $('.js-example-basic-single').select2({
-                placeholder: 'Selecione o Produto'
+            $('#tabelaDoacao').DataTable({
+                processing: true,
+                serverSide: true,
+                order: [[5, "asc"]],
+
+                ajax: "{{route('donor.api.getDonorProduct',$doador->id)}}",
+                columns: [
+
+                    {data: 'Nome Produto'},
+                    {data: 'quantidade'},
+                    {data: 'quantidade'},
+                    {data: 'quantidade'},
+
+
+                ],
+
             });
         });
+
     </script>
 @stop

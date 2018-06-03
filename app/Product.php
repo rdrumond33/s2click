@@ -20,9 +20,6 @@ class Product extends Model
 
     ];
 
-    protected $hidden = [
-        'remember_token',
-    ];
 
     //criando o relacinamento may to may entre as tabelas doadores e estoques
     public function donors(){

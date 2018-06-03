@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'skin' => 'blue-light',
+    'skin' => 'red-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -59,7 +59,7 @@ return [
     |
     */
 
-    'layout' => 'fixed',
+    'layout' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -72,7 +72,7 @@ return [
     |
     */
 
-    'collapse_sidebar' => false,
+    'collapse_sidebar' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -116,6 +116,11 @@ return [
         [
             'text'        => 'Paciente',
             'url'         => 'patient',
+            'icon'        => 'list-ul',
+        ],
+        [
+            'text'        => 'Cadastrar Produto',
+            'url'         => 'produto/adicionar',
             'icon'        => 'list-ul',
         ],
         'Configuração',
@@ -206,5 +211,6 @@ return [
         'datatables' => true,
         'select2'    => true,
         'chartjs'    => true,
+
     ],
 ];

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Donor;
 use App\Product;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class DonorController extends Controller
 {
@@ -29,23 +29,6 @@ class DonorController extends Controller
         return view('Donor.index', compact('doadores'));
     }
 
-    public function apiDonor()
-    {            $donors = Donor::all();
-
-        return datatables()->of($donors)
-            ->addColumn('action', function ($donor){
-                return '<a href="#"  onclick="teste()" "class="btn btn-xs btn-outline-info produto" id="'.$donor->id.'" style="margin-right: 10px"><i class="fab fa-product-hunt" style=" font-size: 2em" ></i> Produto</a>'.
-                    '<a href="#" onclick="teste()" class="btn btn-xs btn-outline-info " ><i class="fas fa-edit" style="font-size: 2em"></i> Editar</a>'.
-                    '<a href="#" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" style="font-size: 2em"></i> Deletar</a>'
-                    ;
-            })->toJson();
-
-
-//        $doadores = Donor::select(['id','nome','endereco','telefone','email','tipo']);
-
-        //      return Datatables::of($doadores)->make();
-
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -93,7 +76,11 @@ class DonorController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $doador = Donor::find($id);
+
+
+        return $doador;
     }
 
     /**
@@ -105,7 +92,21 @@ class DonorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+//        $doador = Donor::find($id);
+//        $doador->nome = $request['nome'];
+//        $doador->endereco = $request['endereco'];
+//        $doador->telefone = $request['telefone'];
+//        $doador->email = $request['email'];
+//        $doador->cpf = $request['cpf'];
+//        $doador->tipo = $request['tipo'];
+//
+//        $doador->save();
+
+        return Donor::where('id', $id)->update($request->except(['_token']));
+
+
+
     }
 
     /**
@@ -116,6 +117,10 @@ class DonorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Donor::destroy($id);
     }
+
+
+
+
 }

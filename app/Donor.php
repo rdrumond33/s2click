@@ -19,9 +19,6 @@ class Donor extends Model
         'cpf',
         'tipo'
     ];
-    protected $hidden = [
-       'remember_token',
-    ];
 
 
     //criando o relacinamento may to may entre as tabelas doadores e estoques
@@ -35,7 +32,7 @@ class Donor extends Model
 
     public function addDonor($dados){
 
-        $this->create($dados);
+        return $this->create($dados);
 
     }
 

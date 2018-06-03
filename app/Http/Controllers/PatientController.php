@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Patient;
 use App\Product;
+
+
 use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
@@ -104,15 +106,11 @@ class PatientController extends Controller
 
     public function doando(Request $request, $idPacinete)
     {
-
-
-
         return view('Patient.Doando', compact('idPacinete'));
     }
 
     public function doandoProduto(Request $request, $idPacinete)
     {
-
 
 
         // request esta vindo o id e quantidade
@@ -140,17 +138,25 @@ class PatientController extends Controller
         $pacientes = Patient::all();
 
         return datatables()->of($pacientes)
-             ->addColumn('ultimaDoacao', function ($pacientes) {
+            ->addColumn('ultimaDoacao', function ($pacientes) {
                 //pegando a ultima doacao
-                $ultimaDoacao = date ('d/F/Y', strtotime (DB::table('patient_product')->where('patient_id',$pacientes->id)->orderBy('created_at','desc')->first()->created_at));
-                return $ultimaDoacao;
+                if (DB::table('patient_product')->where('patient_id',
+                    $pacientes->id)->exists()) {
+                    $ultimaDoacao = date('d/F/Y',
+                        strtotime(DB::table('patient_product')->where('patient_id',
+                            $pacientes->id)->orderBy('created_at',
+                            'desc')->first()->created_at));
+                    return $ultimaDoacao;
+                } else {
+                    return "";
+
+                }
             })
             ->addColumn('action', function ($pacientes) {
-                return '<a href="patient/' . $pacientes->id . '/Doando" class="btn btn-xs btn-outline-info "><i class="glyphicon glyphicon-edit" style="font-size: 2em"></i> </a>' .
-                    '<a href="#" onclick="teste()" class="btn btn-xs btn-outline-info " ><i class="fas fa-edit" style="font-size: 2em"></i> </a>' .
-                    '<a href="#" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" style="font-size: 2em"></i> </a>';
+                return '<a href="patient/' . $pacientes->id . '/Doando" class="btn btn-xs btn-outline-info "><i class="glyphicon glyphicon-edit" ></i> </a>' .
+                    '<a href="#" onclick="editar(' . $pacientes->id . ')" class="btn btn-xs btn-outline-info " ><i class="fas fa-edit" ></i> </a>' .
+                    '<a href="#" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" ></i> </a>';
             })
-
             ->toJson();
 
 

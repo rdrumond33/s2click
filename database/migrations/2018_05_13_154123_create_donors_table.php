@@ -16,12 +16,11 @@ class CreateDonorsTable extends Migration
         Schema::create('donors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome',100);
-            $table->string('cpf',50)->unique()->nullable();
+            $table->string('cpf',50)->nullable();
             $table->string('email',150);
-            $table->string('endereco',150);
+            $table->string('endereco',150)->nullable();
             $table->string('telefone',20);
             $table->string('tipo',30);
-            $table->rememberToken();
             $table->timestamps();
 
         });

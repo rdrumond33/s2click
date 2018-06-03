@@ -4,7 +4,7 @@
 
 @section('content_header')
     <div class="row">
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-md-3 col-sm-6 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-yellow">
                 <div class="inner">
@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-md-3 col-sm-6 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-md-3 col-sm-6 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-red">
                 <div class="inner">
@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-md-3 col-sm-6 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-blue">
                 <div class="inner">
@@ -85,35 +85,49 @@
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Grafico De Recebiemnto</h3>
+                    <h3 class="box-title">Produtos Cadastrados <span>
+                                             <a href="" type="button" class="" data-toggle="modal"
+                                                data-target="#exampleModalCenter"><i
+                                                         class="fab fa-product-hunt"></i></a></span></h3>
 
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                                title="" data-original-title="Collapse">
-                            <i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                                title="" data-original-title="Remove">
-                            <i class="fa fa-times"></i></button>
-                    </div>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                                    title="" data-original-title="Collapse">
+                                <i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
+                                    title="" data-original-title="Remove">
+                                <i class="fa fa-times"></i></button>
+                        </div>
                 </div>
                 <div class="box-body" style="">
-                    <div class="chart">
-                        <canvas id="areaChart" style="height: 250px; width: 514px;" width="514" height="250"></canvas>
-                    </div>
+
+                    <table id="tableProduto" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>nome</th>
+                            <th>marca</th>
+                            <th>categoria</th>
+                            <th>descricaoProduto</th>
+                            <th>amount</th>
+                            <th>Cadastrado</th>
+                            <th></th>
+
+
+                        </tr>
+                        </thead>
+
+
+                    </table>
+
+
                 </div>
-                <!-- /.box-body -->
-                <div class="box-footer" style="">
-                    Footer
-                </div>
-                <!-- /.box-footer-->
             </div>
         </div>
-
         <div class="col-md-6">
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Pacientes</h3>
+                    <h3 class="box-title">Pacientes <a href=""><i class="fab fa-accessible-icon"></i></a></h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -124,8 +138,8 @@
                             <i class="fa fa-times"></i></button>
                     </div>
                 </div>
-                <div class="box-body" style="">
-                    <table id="tablePaciente" class="display" style="width:100%">
+                <div class="box-body">
+                    <table id="tablePaciente" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                         <tr>
                             <th>nome</th>
@@ -136,29 +150,16 @@
                             <th>ultimaDoacao</th>
 
                             <th>Cadastrado</th>
-                            <th>Acao</th>
+                            <th></th>
 
 
                         </tr>
                         </thead>
-                        <tfoot></tfoot>
 
 
                     </table>
                 </div>
-                <!-- /.box-body -->
-                <div class="box-footer" style="margin-left: ">
-                    <div class="box-footer clearfix">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="#">«</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">»</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- /.box-footer-->
+
             </div>
         </div>
 
@@ -169,75 +170,90 @@
 
 
 
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
 @stop
 
 @section('js')
 
-
-
     <script>
 
         $(document).ready(function () {
-            $('#tablePaciente').DataTable({
+
+            $table = $('#tablePaciente').DataTable({
                 processing: true,
                 serverSide: true,
+                responsive: true,
+                order: [[5, "asc"]],
                 ajax: "{{route('Patient.Api')}}",
                 columns: [
 
-                    {data: 'nome'},
-                    {data: 'responsavel'},
-                    {data: 'especiais'},
-                    {data: 'necessidade'},
-                    {data: 'receita'},
+                    {data: 'nome', orderable: false, searchable: false},
+                    {data: 'responsavel', orderable: false, searchable: false},
+                    {data: 'especiais', orderable: false, searchable: false},
+                    {data: 'necessidade', orderable: false, searchable: false},
+                    {data: 'receita', orderable: false, searchable: false},
                     {data: 'ultimaDoacao'},
-                    {data: 'created_at'},
+                    {data: 'created_at', orderable: false, searchable: false},
                     {data: 'action', orderable: false, searchable: false}
 
                 ],
-
+                dom: 'Bfrtip',
+                buttons: [
+                    'pdf',
+                ]
             });
-        });
+            $table2 = $('#tableProduto').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                order: [[5, "asc"]],
+                ajax: "{{route('Produto.Api')}}",
+                columns: [
+
+                    {data: 'nome'},
+                    {data: 'marca'},
+                    {data: 'categoria'},
+                    {data: 'descricaoProduto'},
+                    {data: 'amount'},
+                    {data: 'created_at'},
+
+                    {data: 'action', orderable: false, searchable: false}
+
+                ],
+            });
+        })
+        ;
 
     </script>
 
-    <script>
-        var ctx = document.getElementById("areaChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
 
 @stop
