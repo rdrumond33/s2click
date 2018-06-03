@@ -16,6 +16,7 @@
 @stop
 
 @section('content')
+
     <div class="row"><!-- inicio da Row -->
         <div class="col-xs-12">
             <div class="box">
@@ -27,10 +28,6 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                        <div class="row">
-                            <div class="col-sm-6"></div>
-                            <div class="col-sm-6"></div>
-                        </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <table id="tabelaDoadores" class="table table-bordered" style="width:100%">
@@ -55,17 +52,10 @@
             </div>
         </div>
         @include('Donor.form')
-
     </div> {{--fim da row--}}
-
-
-
-
 @stop
 
 @section('js')
-
-
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -76,6 +66,30 @@
                 responsive: true,
                 info: true,
                 autoWidth: false,
+                language: {
+                    sEmptyTable: "Nenhum registro encontrado",
+                    sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                    sInfoFiltered: "(Filtrados de _MAX_ registros)",
+                    sInfoPostFix: "",
+                    sInfoThousands: ".",
+                    sLengthMenu: "_MENU_ resultados por página",
+                    sLoadingRecords: "Carregando...",
+                    sProcessing: "Processando...",
+                    sZeroRecords: "Nenhum registro encontrado",
+                    sSearch: "Pesquisar",
+                    oPaginate: {
+                        sNext: "Próximo",
+                        sPrevious: "Anterior",
+                        sFirst: "Primeiro",
+                        sLast: "Último"
+                    },
+                    oAria: {
+                        sSortAscending: ": Ordenar colunas de forma ascendente",
+                        sSortDescending: ": Ordenar colunas de forma descendente"
+                    }
+                },
+
 
                 ajax: "{{route('donor.api.getDonor')}}",
                 columns: [
@@ -187,19 +201,6 @@
             });
 
         }
-
-        function teste(id) {
-                        var url ="/donor/product/create/" + id;
-
-            $.ajax({
-                url:url,
-                type: "GET",
-
-            })
-
-
-        }
-
     </script>
 
 @stop

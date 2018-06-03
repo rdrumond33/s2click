@@ -3,6 +3,19 @@
 @section('title', 'S2click')
 
 @section('content_header')
+    <h1>
+        S2CLICK
+        <small>Version 1.0</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="home"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li class="active"></li>
+    </ol>
+@stop
+
+@section('content')
+
+
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-6">
             <!-- small box -->
@@ -32,8 +45,7 @@
                     }
                     ?>
 
-
-                    <h4>Produtos cadastrados: {{$teste}} </h4>
+                    <p>Quatidade em Stock:&nbsp;{{$teste}} </p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-shopping-cart"></i>
@@ -51,7 +63,7 @@
                     <p>Doadores registrados</p>
                 </div>
                 <div class="icon">
-                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                    <i class="fas fa-donate"></i>
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -75,101 +87,82 @@
 
     </div>
 
-@stop
-
-@section('content')
 
 
-    <div class="row">
-        <div class="col-md-6">
 
+    <div class="row"><!-- inicio da Row -->
+        <div class="col-md-6 ">
             <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Produtos Cadastrados <span>
-                                             <a href="" type="button" class="" data-toggle="modal"
-                                                data-target="#exampleModalCenter"><i
-                                                         class="fab fa-product-hunt"></i></a></span></h3>
-
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                                    title="" data-original-title="Collapse">
-                                <i class="fa fa-minus"></i></button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                                    title="" data-original-title="Remove">
-                                <i class="fa fa-times"></i></button>
-                        </div>
+                <div class="box-header">
+                    <h3 class="box-title">Produtos</h3>
+                    <a onclick="addForm()" class="btn btn-default" style="float: right;margin-right: 5px"><i
+                                class="fab fa-product-hunt" style="padding-right: 10px"></i>Adicionar</a>
                 </div>
-                <div class="box-body" style="">
-
-                    <table id="tableProduto" class="table table-striped table-bordered" style="width:100%">
-                        <thead>
-                        <tr>
-                            <th>nome</th>
-                            <th>marca</th>
-                            <th>categoria</th>
-                            <th>descricaoProduto</th>
-                            <th>amount</th>
-                            <th>Cadastrado</th>
-                            <th></th>
-
-
-                        </tr>
-                        </thead>
-
-
-                    </table>
-
-
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Pacientes <a href=""><i class="fab fa-accessible-icon"></i></a></h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                                title="" data-original-title="Collapse">
-                            <i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                                title="" data-original-title="Remove">
-                            <i class="fa fa-times"></i></button>
-                    </div>
-                </div>
+                <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="tablePaciente" class="table table-striped table-bordered" style="width:100%">
-                        <thead>
-                        <tr>
-                            <th>nome</th>
-                            <th>responsavel</th>
-                            <th>especiais</th>
-                            <th>necessidade</th>
-                            <th>receita</th>
-                            <th>ultimaDoacao</th>
+                    <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-12">
 
-                            <th>Cadastrado</th>
-                            <th></th>
-
-
-                        </tr>
-                        </thead>
-
-
-                    </table>
+                                <table id="tableProduto" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>nome</th>
+                                        <th>marca</th>
+                                        <th>categoria</th>
+                                        <th>descricaoProduto</th>
+                                        <th>amount</th>
+                                        <th>Cadastrado</th>
+                                        <th></th>
+                                    <tfoot></tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
                 </div>
-
             </div>
         </div>
 
 
+        <div class="col-md-6 ">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Paticente</h3>
+                    <a onclick="addForm()" class="btn btn-default" style="float: right;margin-right: 5px"><i
+                                class="fab fa-accessible-icon" style="padding-right: 10px"></i>Adicionar</a>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <table id="tablePaciente" class="table table-striped table-bordered"
+                                       style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>nome</th>
+                                        <th>responsavel</th>
+                                        <th>especiais</th>
+                                        <th>necessidade</th>
+                                        <th>receita</th>
+                                        <th>ultimaDoacao</th>
+                                        <th>Cadastrado</th>
+                                        <th></th>
+
+
+                                    </tr>
+                                    <tfoot></tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
     </div>
-
-
-
-
-
 
 
     <!-- Modal -->
@@ -196,10 +189,6 @@
     </div>
 
 
-
-
-
-
 @stop
 
 @section('js')
@@ -212,8 +201,31 @@
                 processing: true,
                 serverSide: true,
                 responsive: true,
+                language: {
+                    sEmptyTable: "Nenhum registro encontrado",
+                    sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                    sInfoFiltered: "(Filtrados de _MAX_ registros)",
+                    sInfoPostFix: "",
+                    sInfoThousands: ".",
+                    sLengthMenu: "_MENU_ resultados por página",
+                    sLoadingRecords: "Carregando...",
+                    sProcessing: "Processando...",
+                    sZeroRecords: "Nenhum registro encontrado",
+                    sSearch: "Pesquisar",
+                    oPaginate: {
+                        sNext: "Próximo",
+                        sPrevious: "Anterior",
+                        sFirst: "Primeiro",
+                        sLast: "Último"
+                    },
+                    oAria: {
+                        sSortAscending: ": Ordenar colunas de forma ascendente",
+                        sSortDescending: ": Ordenar colunas de forma descendente"
+                    }
+                },
                 order: [[5, "asc"]],
-                ajax: "{{route('Patient.Api')}}",
+                ajax: "{{route('Patient.Api.getDatablePatient')}}",
                 columns: [
 
                     {data: 'nome', orderable: false, searchable: false},
@@ -226,17 +238,40 @@
                     {data: 'action', orderable: false, searchable: false}
 
                 ],
-                dom: 'Bfrtip',
-                buttons: [
-                    'pdf',
-                ]
+
             });
+
             $table2 = $('#tableProduto').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
+
+                language: {
+                    sEmptyTable: "Nenhum registro encontrado",
+                    sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                    sInfoFiltered: "(Filtrados de _MAX_ registros)",
+                    sInfoPostFix: "",
+                    sInfoThousands: ".",
+                    sLengthMenu: "_MENU_ resultados por página",
+                    sLoadingRecords: "Carregando...",
+                    sProcessing: "Processando...",
+                    sZeroRecords: "Nenhum registro encontrado",
+                    sSearch: "Pesquisar",
+                    oPaginate: {
+                        sNext: "Próximo",
+                        sPrevious: "Anterior",
+                        sFirst: "Primeiro",
+                        sLast: "Último"
+                    },
+                    oAria: {
+                        sSortAscending: ": Ordenar colunas de forma ascendente",
+                        sSortDescending: ": Ordenar colunas de forma descendente"
+                    }
+                },
+
                 order: [[5, "asc"]],
-                ajax: "{{route('Produto.Api')}}",
+                ajax: "{{route('Produto.Api.getDatableProduct')}}",
                 columns: [
 
                     {data: 'nome'},

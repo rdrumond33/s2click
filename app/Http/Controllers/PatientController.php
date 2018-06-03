@@ -133,33 +133,6 @@ class PatientController extends Controller
     }
 
 
-    public function getDatable()
-    {
-        $pacientes = Patient::all();
 
-        return datatables()->of($pacientes)
-            ->addColumn('ultimaDoacao', function ($pacientes) {
-                //pegando a ultima doacao
-                if (DB::table('patient_product')->where('patient_id',
-                    $pacientes->id)->exists()) {
-                    $ultimaDoacao = date('d/F/Y',
-                        strtotime(DB::table('patient_product')->where('patient_id',
-                            $pacientes->id)->orderBy('created_at',
-                            'desc')->first()->created_at));
-                    return $ultimaDoacao;
-                } else {
-                    return "";
-
-                }
-            })
-            ->addColumn('action', function ($pacientes) {
-                return '<a href="patient/' . $pacientes->id . '/Doando" class="btn btn-xs btn-outline-info "><i class="glyphicon glyphicon-edit" ></i> </a>' .
-                    '<a href="#" onclick="editar(' . $pacientes->id . ')" class="btn btn-xs btn-outline-info " ><i class="fas fa-edit" ></i> </a>' .
-                    '<a href="#" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" ></i> </a>';
-            })
-            ->toJson();
-
-
-    }
 
 }

@@ -128,20 +128,6 @@ class ProductController extends Controller
     }
 
 
-    public function getDatable()
-    {
-
-
-        $pacientes = Product::all();
-
-        return datatables()->of($pacientes)
-            ->addColumn('action', function ($pacientes) {
-                return '<a href="#" onclick="editForm('.$pacientes->id.')" class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt"></i> Editar</a>' .
-                    '<a href="#" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" style="font-size: 2em"></i> </a>';
-            })
-            ->toJson();
-
-    }
 
     public function teste(Request $request)
     {
