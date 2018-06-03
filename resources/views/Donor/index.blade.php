@@ -110,6 +110,75 @@
         });
 
 
+        $(function () {
+            $('#modal-form form').validator().on('submit', function (e) {
+
+                if (!e.isDefaultPrevented()) {
+                    var id = $('id').val();
+                    if (save_method == 'add')
+                        url = "{{url('donor')}}";
+                    else
+                        url = "{{url('donor'.'/')}}" + id;
+
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: $('#modal-form').serialize(),
+                        success: function ($data) {
+                            $('#modal-form').modal('hide');
+                            $('#tabelaDoadores').DataTable().ajax.reload();
+
+                        },
+                        error: function () {
+                            alert('Erro');
+
+                        }
+                    });
+                }
+            });
+
+        });
+
+
+        function addForm() {
+            save_method = 'add';
+            console.log(save_method);
+            $('input[name=_method]').val('POST');
+            $('#modal-form').modal('show');
+            $('#modal-form form')[0].reset();
+            $('.modal-title').text('Adicionar Doador');
+        }
+
+
+        function editForm(id) {
+
+            save_method = 'edit';
+            $('input[name=_method]').val('POST');
+            $('#modal-form form')[0].reset();
+            $.ajax({
+                url: "{{url('donor')}}" + '/' + id + "/edit",
+                type: "GET",
+                dataType: "JSON",
+                success: function (data) {
+                    $('#modal-form').modal('show');
+                    $('.modal-title').text('Editar Doador');
+
+                    $('#id').val(data.id);
+                    $('#nome').val(data.nome);
+                    $('#cpf').val(data.cpf);
+                    $('#email').val(data.email);
+                    $('#endereco').val(data.endereco);
+                    $('#telefone').val(data.telefone);
+                    $('#tipo').val(data.tipo);
+
+                },
+                error: function () {
+                    alert("Nothin DATA")
+                }
+            });
+
+        }
+
         function deletDonor(id) {
             var popup = confirm("Deseja mesmo deletar");
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
@@ -137,70 +206,6 @@
         }
 
 
-        $(function () {
-            $('#modal-form form').validator().on('submit', function (e) {
-
-                if (!e.isDefaultPrevented()) {
-                    var id = $('id').val();
-                    if (save_method == 'add') url = "{{url('donor')}}";
-                    else url = "{{url('donor'.'/')}}" + id;
-                    $, ajax({
-                        url: url,
-                        type: "POST",
-                        data: $('#modal-form').serialize(),
-                        success: function ($data) {
-                            $('#modal-form').modal('hide');
-                            $('#tabelaDoadores').DataTable().ajax.reload();
-
-                        },
-                        error: function () {
-                            alert('Erro');
-
-                        }
-                    });
-                }
-            });
-
-        });
-
-        function addForm() {
-            save_method = 'add';
-            console.log(save_method);
-            $('input[name=_method]').val('POST');
-            $('#modal-form').modal('show');
-            $('#modal-form form')[0].reset();
-            $('.modal-title').text('Adicionar Doador');
-        }
-
-
-        function editForm(id) {
-
-            save_method = 'edit';
-            $('input[name=_method]').val('PUT');
-            $('#modal-form form')[0].reset();
-            $.ajax({
-                url: "{{url('donor')}}" + '/' + id + "/edit",
-                type: "GET",
-                dataType: "JSON",
-                success: function (data) {
-                    $('#modal-form').modal('show');
-                    $('.modal-title').text('Editar Doador');
-
-                    $('#id').val(data.id);
-                    $('#nome').val(data.nome);
-                    $('#cpf').val(data.cpf);
-                    $('#email').val(data.email);
-                    $('#endereco').val(data.endereco);
-                    $('#telefone').val(data.telefone);
-                    $('#tipo').val(data.tipo);
-
-                },
-                error: function () {
-                    alert("Nothin DATA")
-                }
-            });
-
-        }
     </script>
 
 @stop

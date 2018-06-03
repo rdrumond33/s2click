@@ -40,7 +40,10 @@ Route::post('/patient/{id}/Doando', 'PatientController@doandoProduto')->name('Pa
 Route::get('/donor/api/get', 'ApiController@getDonor')->name('donor.api.getDonor');
 Route::get('/donor/api/get/product/{id}', 'ApiController@getDonorProduct')->name('donor.api.getDonorProduct');
 Route::get('/patient/api', 'ApiController@getDatablePatient')->name('Patient.Api.getDatablePatient');
-Route::get('/Produto/api', 'ApiController@getDatableProduct')->name('Produto.Api.getDatableProduct');
+Route::get('/produto/api', 'ApiController@getDatableProduct')->name('Produto.Api.getDatableProduct');
+Route::get('/pacient/api', 'ApiController@getDatablePaciente')->name('pacient.Api.getDatablePaciente');
+Route::get('/produto/api/Doados/{id}', 'ApiController@getDatableProductDoados')->name('Produto.Api.getDatableProductDoados');
+
 
 
 //Route::get('/donor/api','DonorController@apiDonor')->name('api.Donor');

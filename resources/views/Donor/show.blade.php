@@ -3,10 +3,18 @@
 @section('title', 'S2Click')
 
 @section('content_header')
-    <h1>O {{$doador->nome}} <br> id:{{$doador->id}} </h1>
+    <h1>
+        S2CLICK
+        <small>Version 1.0</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="home"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="{{route('donor.index')}}"><i class="fa fa-dashboard"></i>Doadores</a></li>
+        <li><a href=""><i class="fa fa-dashboard"></i>Doação</a></li>
 
+        <li class="active"></li>
+    </ol>
 @stop
-
 
 
 @section('content')
@@ -17,71 +25,61 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h2 class="box-title">Produto doado</h2>
+
+                    <button type="button" class="fas fa-plus-circle btn btn-default" aria-hidden="true"
+                            data-toggle="modal"
+                            data-target="#AdicionarProduto" style="float: right"></button>
                 </div>
                 <div class="box-body">
-                    <form action="{{route('Product.RelacinarDonorProduct',$doador->id)}}" method="POST">
+                    <form action="{{route('Product.RelacinarDonorProduct',$doador->id)}}" method="POST" class="form-horizontal">
 
                         @csrf
 
-
-                        <div class="form-row">
-
-                            <div class="col-sm-6">
-                                <select class="js-example-basic-single" name="state" style="width: 100%">
+                        <div class="form-group">
+                            <label for="nome" class="col-md-3 control-label">Produto</label>
+                            <div class="col-md-6">
+                                <select class="SelecionarProduto" name="state" style="width: 100%">
                                     @foreach(\App\Product::all() as $produto)
                                         <option value="{{$produto->id}}">{{$produto->nome}}
                                             :{{$produto->amount}}</option>
                                     @endforeach
                                 </select>
                             </div>
-
-
-                            <div class="col-sm-6">
-                                <input type="text" name="amount" class="form-control" placeholder="quantidade">
-                            </div>
-
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary" style="margin: 20px">Salvar</button>
-
-                                <button type="button" class="btn btn-warning" href="#">Voltar</button>
+                        <div class="form-group">
+                            <label for="nome" class="col-md-3 control-label">Quantidade</label>
+                            <div class="col-md-6">
+                                <input style="width: 50%" type="number" class="form-control" name="amount"
+                                       id="amount"
+                                       placeholder="quantidade">
                             </div>
+                        </div>
 
+                        <div class="modal-footer">
+
+                            <button type="submit" class="btn btn-primary btn-save">Salvar</button>
                         </div>
                     </form>
 
-
                 </div>
 
-
             </div>
+
+
         </div>
 
         <div class="col-lg-6">
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tabela de Produtos Doados pelo{{\App\Donor::find($doador->id)->nome}}</h3>
+                    <h3 class="box-title">Produtos Doados pelo &nbsp <strong>{{\App\Donor::find($doador->id)->nome}}</strong></h3>
 
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                                title="" data-original-title="Collapse">
-                            <i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                                title="" data-original-title="Remove">
-                            <i class="fa fa-times"></i></button>
-                    </div>
+
                 </div>
 
 
                 <div class="box-body" style="">
-
-                    <th>
-                        <button type="button" class="fa fa-plus" aria-hidden="true" data-toggle="modal"
-                                data-target="#AdicionarProduto"></button>
-                    </th>
 
 
                     <table id="tabelaDoacao" class="table table-striped table-bordered" style="width:100%">
@@ -91,9 +89,7 @@
                             <th>quantidade</th>
                             <th>data</th>
                         </tr>
-                        <tfoot>
-
-                        </tfoot>
+                        <tfoot></tfoot>
                     </table>
                 </div>
             </div>
@@ -102,91 +98,125 @@
 
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="AdicionarProduto">
-        <div class="modal-dialog">
+
+
+
+    <!-- Modal add-->
+    <div class="modal" id="AdicionarProduto" tabindex="1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Adicionar doador</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
 
-                <div class="modal-body">
+                <form method="post" class="form-horizontal" data-toggle="validator">
+                    {{csrf_field()}} {{ method_field('POST') }}
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                    <form action="{{route('Product.store',$doador->id)}}" method="POST">
+                        <h3 class="modal-title">Cadastra Produto Novo</h3>
 
+                    </div>
 
-                        @csrf
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="nome">Nome</label>
-                                <input type="text" name="nome" class="form-control" id="nome">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="marca">marca</label>
-                                <input type="text" name="marca" class="form-control" id="marca">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="categoria">categoria</label>
-                                <input type="text" name="categoria" class="form-control" id="categoria">
-                            </div>
-                        </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="id" name="id">
                         <div class="form-group">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="descricaoProduto">descricaoProduto</label>
-                                    <input type="text" name="descricaoProduto" class="form-control"
-                                           id="descricaoProduto">
-                                </div>
-
-
-                                <div class="form-group">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="modal-footer">
-
-                                    <button type="submit" class="btn btn-primary">Salvar</button>
-
-                                    <button type="button" class="btn btn-warning" href="{{route('donor.index')}}">Voltar
-                                    </button>
-                                </div>
+                            <label for="nome" class="col-md-3 control-label">Nome</label>
+                            <div class="col-md-6">
+                                <input type="text" name="nome" class="form-control" id="nome">
+                                <span class="help-block with-errors"></span>
                             </div>
                         </div>
 
-                    </form><!-- Fim form -->
-                </div>
-            </div> <!-- Fim modal-body -->
-        </div>
+                        <div class="form-group">
+                            <label for="cpf" class="col-md-3 control-label">Marca</label>
+                            <div class="col-md-6">
+                                <input type="text" name="marca" class="form-control" id="marca">
+                                <span class="help-block with-errors"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="col-md-3 control-label">Categoria</label>
+                            <div class="col-md-6">
+                                <input type="text" name="categoria" class="form-control" id="categoria">
+                                <span class="help-block with-errors"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="endereco" class="col-md-3 control-label">DescricaoProduto</label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" id="descricaoProduto" name="descricaoProduto" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div> {{--fim modal body --}}]
+
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-primary btn-save">Salvar</button>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
+                    </div>
+
+                </form>{{--fim do Formulario--}}
+            </div>
+        </div> <!-- Fim modal-body -->
     </div> <!-- Fim Modal -->
+
+
 
 @stop
 
 @section('js')
     <script>
 
-        $(document).ready(function () {
-            $('#tabelaDoacao').DataTable({
-                processing: true,
-                serverSide: true,
-                order: [[5, "asc"]],
-
-                ajax: "{{route('donor.api.getDonorProduct',$doador->id)}}",
-                columns: [
-
-                    {data: 'Nome Produto'},
-                    {data: 'quantidade'},
-                    {data: 'quantidade'},
-                    {data: 'quantidade'},
-
-
-                ],
-
-            });
+        $('.SelecionarProduto').select2({
+            placeholder: 'Select an option'
         });
+
+
+        $table = $('#tabelaDoacao').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            dom: 'Bfrtip',
+            buttons: [
+                'pdf',
+            ],
+
+            language: {
+                sEmptyTable: "Nenhum registro encontrado",
+                sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                sInfoFiltered: "(Filtrados de _MAX_ registros)",
+                sInfoPostFix: "",
+                sInfoThousands: ".",
+                sLengthMenu: "_MENU_ resultados por página",
+                sLoadingRecords: "Carregando...",
+                sProcessing: "Processando...",
+                sZeroRecords: "Nenhum registro encontrado",
+                sSearch: "Pesquisar",
+                oPaginate: {
+                    sNext: "Próximo",
+                    sPrevious: "Anterior",
+                    sFirst: "Primeiro",
+                    sLast: "Último"
+                },
+                oAria: {
+                    sSortAscending: ": Ordenar colunas de forma ascendente",
+                    sSortDescending: ": Ordenar colunas de forma descendente"
+                }
+            },
+
+            ajax: "{{route('donor.api.getDonorProduct',$doador->id)}}",
+            columns: [
+
+                {data: 'Produto'},
+                {data: 'quantidade'},
+                {data: 'created_at'},
+
+            ],
+
+        });
+
 
     </script>
 @stop

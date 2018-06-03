@@ -3,73 +3,86 @@
 @section('title', 'S2Click|Pacientes')
 
 @section('content_header')
-    <h1>Paciente:{{\App\Patient::all()->find($idPacinete)->nome}}</h1>
+    <h1>
+        S2CLICK
+        <small>Version 1.0</small>
+    </h1>
+    <ol class="breadcrumb">
+
+        <li><a href="home"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href=""><i class="fa fa-dashboard"></i>Paciente</a></li>
+        <li><a href=""><i class="fa fa-dashboard"></i>Doando
+                &nbsp;<strong>{{App\Patient::all()->find($idPacinete)->nome}}</strong>
+            </a></li>
+
+        <li class="active"></li>
+    </ol>
 @stop
 
 @section('content')
 
     <div class="row">
-
-        <div class="col-sm-6">
+        <div class="col-md-6">
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Title</h3>
+                    <h2 class="box-title">Produto doado</h2>
 
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                                title=""
-                                data-original-title="Collapse">
-                            <i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                                title=""
-                                data-original-title="Remove">
-                            <i class="fa fa-times"></i></button>
-                    </div>
+
                 </div>
                 <div class="box-body">
+                    <form action="{{route('Patient.relacionando',$idPacinete)}}" method="POST"
 
-                    <form action="{{route('Patient.relacionando',$idPacinete)}}" method="POST">
+                          class="form-horizontal">
 
                         @csrf
 
                         <div class="form-group">
+                            <label for="nome" class="col-md-3 control-label">Produto</label>
+                            <div class="col-md-6">
+                                <select class="SelecionarProduto" name="state" style="width: 100%">
+                                    @foreach(\App\Product::all() as $produto)
+                                        @if($produto->amount == 0)
+                                            {{--<option value="{{$produto->id}}">{{$produto->nome}}--}}
+                                                {{--Indisponivel</option>--}}
+                                        @else
+                                        <option value="{{$produto->id}}">{{$produto->nome}}
+                                            &nbsp;Quantidade:{{$produto->amount}}</option>
 
-
-                            <label for="exampleInputEmail1">Produto</label>
-                            <select class="SelectProduto" name="id" style="width: 50%">
-                                @foreach(\App\Product::all() as $produto)
-                                    <option value="{{$produto->id}}">{{$produto->nome}}
-                                        Quantidade:{{$produto->amount}}</option>
-                                @endforeach
-                            </select>
-
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
+
                         <div class="form-group">
-
-                            <label for="exampleInputEmail1">Quantidade</label>
-                            <input style="width: 50%" type="number" class="form-control" name="amount" id="amount"
-                                   placeholder="quantidade">
+                            <label for="nome" class="col-md-3 control-label">Quantidade</label>
+                            <div class="col-md-6">
+                                <input style="width: 50%" type="number" class="form-control" name="amount"
+                                       id="amount"
+                                       placeholder="quantidade">
+                            </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" style="margin: 20px">Salvar</button>
+                        <div class="modal-footer">
 
+                            <button type="submit" class="btn btn-primary btn-save">Salvar</button>
+                        </div>
                     </form>
 
                 </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                    Footer
-                </div>
-                <!-- /.box-footer-->
+
             </div>
+
+
         </div>
 
 
         <div class="col-sm-6">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Title</h3>
+                    <h3 class="box-title">Produtos Recebidos por
+                        <strong> {{App\Patient::all()->find($idPacinete)->nome}}</strong></h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -82,57 +95,26 @@
                 </div>
                 <div class="box-body">
 
-
-                    <th>
-                        <button type="button" class="fa fa-plus" aria-hidden="true" data-toggle="modal"
-                                data-target="#AdicionarProduto"></button>
-                    </th>
-
-
-                    <table id="" class="table table-striped table-bordered" style="width:100%">
+                    <table id="tabelaProdutodDoados" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                         <tr>
-                            <th>id</th>
                             <th>Nome produto</th>
-                            <th>marca</th>
-                            <th>categoria</th>
-                            <th>descricaoProduto</th>
                             <th>quantidade</th>
                             <th>data</th>
-                            <th>data</th>
-
 
                         </tr>
                         <tfoot>
-                        @foreach(\App\Patient::all()->find($idPacinete)->products as $produto)
-                            <tr>
-
-
-                                <td>{{$produto->id}}</td>
-                                <td>{{$produto->nome}}</td>
-                                <td>{{$produto->marca}}</td>
-                                <td>{{$produto->categoria}}</td>
-                                <td>{{$produto->descricaoProduto}}</td>
-                                <td>{{$produto->dados->quantidadeDoada}}</td>
-                                <td>{{$produto->dados->created_at}}</td>
-
-                                <td>{{$produto->dados->updated_at}}</td>
-                            </tr>
-                        @endforeach
                         </tfoot>
                     </table>
 
 
                 </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                    Footer
-                </div>
-                <!-- /.box-footer-->
+
             </div>
 
         </div>
     </div>
+
 
 @stop
 
@@ -140,9 +122,59 @@
 
     <script>
         $(document).ready(function () {
-            $('.SelectProduto').select2();
+
+            $('.SelecionarProduto').select2({
+                placeholder: 'Selecione o Produto'
+            });
+
+            var table = $('#tabelaProdutodDoados').DataTable({
+
+                processing: true,
+                serverSide: true,
+                responsive: true,
+
+                language: {
+                    sEmptyTable: "Nenhum registro encontrado",
+                    sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                    sInfoFiltered: "(Filtrados de _MAX_ registros)",
+                    sInfoPostFix: "",
+                    sInfoThousands: ".",
+                    sLengthMenu: "_MENU_ resultados por página",
+                    sLoadingRecords: "Carregando...",
+                    sProcessing: "Processando...",
+                    sZeroRecords: "Nenhum registro encontrado",
+                    sSearch: "Pesquisar",
+                    oPaginate: {
+                        sNext: "Próximo",
+                        sPrevious: "Anterior",
+                        sFirst: "Primeiro",
+                        sLast: "Último"
+                    },
+                    oAria: {
+                        sSortAscending: ": Ordenar colunas de forma ascendente",
+                        sSortDescending: ": Ordenar colunas de forma descendente"
+                    }
+                },
+
+
+                ajax: "{{route('Produto.Api.getDatableProductDoados',$idPacinete)}}",
+
+                columns: [
+                    {data: 'Produto'},
+                    {data: 'quantidadeDoada'},
+                    {data: 'created_at'},
+                ],
+
+            });
+
+
         });
+
+
     </script>
+
+
 
 
 @stop

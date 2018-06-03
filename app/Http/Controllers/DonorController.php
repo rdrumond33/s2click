@@ -50,9 +50,9 @@ class DonorController extends Controller
     public function store(Request $request)
     {
 
-        $this->doadorModel->addDonor($request->all());
 
-        return view('Donor.index');
+
+        return $this->doadorModel->addDonor($request->all());
     }
 
     /**
@@ -93,20 +93,11 @@ class DonorController extends Controller
     public function update(Request $request, $id)
     {
 
-//        $doador = Donor::find($id);
-//        $doador->nome = $request['nome'];
-//        $doador->endereco = $request['endereco'];
-//        $doador->telefone = $request['telefone'];
-//        $doador->email = $request['email'];
-//        $doador->cpf = $request['cpf'];
-//        $doador->tipo = $request['tipo'];
-//
-//        $doador->save();
-
-        return Donor::where('id', $id)->update($request->except(['_token']));
 
 
-
+        return   DB::table('donors')
+            ->where('id', $id)
+            ->update($request->all());;
     }
 
     /**
@@ -119,8 +110,6 @@ class DonorController extends Controller
     {
         Donor::destroy($id);
     }
-
-
 
 
 }

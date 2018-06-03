@@ -26,6 +26,7 @@ class Patient extends Model
 
 
     public function addPaciente($dados){
+
         $this->create($dados);
     }
 
@@ -33,9 +34,5 @@ class Patient extends Model
         return $this->all();
     }
 
-    public function getData(){
 
-        dd($this->allPaciente());
-
-    }
 }

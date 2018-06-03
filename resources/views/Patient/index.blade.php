@@ -3,7 +3,16 @@
 @section('title', 'S2Click|Pacientes')
 
 @section('content_header')
-    <h1>Paciente</h1>
+    <h1>
+        S2CLICK
+        <small>Version 1.0</small>
+    </h1>
+    <ol class="breadcrumb">
+
+        <li><a href="home"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href=""><i class="fa fa-dashboard"></i>Paciente</a></li>
+        <li class="active"></li>
+    </ol>
 @stop
 
 @section('content')
@@ -14,10 +23,11 @@
 
             <div class="box">
                 <div class="box-body">
-                    <button type="button" class="fa fa-plus" aria-hidden="true" data-toggle="modal"
-                            data-target="#AdicionarDoador"></button>
+
                     <div class="box-header with-border">
-                        <h3 class="box-title">Title</h3>
+                        <h3 class="box-title">Paciente</h3>
+                        <button type="button" class="fa fa-plus" aria-hidden="true" data-toggle="modal"
+                                data-target="#AdicionarPaciente" style="float: right;"></button>
 
                         <div class="box-tools pull-right">
 
@@ -25,7 +35,7 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <table id="tabelaPaciente" class="table " style="width:100%">
+                        <table id="tablePaciente" class="table " style="width:100%">
                             <thead>
                             <tr>
                                 <th>nome</th>
@@ -34,112 +44,112 @@
                                 <th>necessidade</th>
                                 <th>receita</th>
                                 <th>Cadastrado</th>
-                                <th>Ultima Atualizaçao</th>
-
-
+                                <th>Upadate</th>
                             </tr>
-                            <tfoot>
-                            @foreach($pacientes as $paciente)
-                                <tr>
-                                    <th><a href="{{route('Patient.doando',$paciente->id)}}">{{$paciente->nome}}</a></th>
-                                    <th>{{$paciente->responsavel}}</th>
-                                    <th>{{$paciente->especiais}}</th>
-                                    <th>{{$paciente->necessidade}}</th>
-                                    <th>{{$paciente->receita}}</th>
-                                    <th>{{$paciente->created_at}}</th>
-                                    <th>{{$paciente->updated_at}}</th>
-                                </tr>
-                                @endforeach
-
-                            </tfoot>
+                            <tfoot></tfoot>
                         </table>
                     </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer">
-                        Footer
-                    </div>
-                    <!-- /.box-footer-->
+
                 </div>
             </div>
             <div class="col-sm-3"></div>
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="AdicionarDoador">
-        <div class="modal-dialog">
+
+
+    <!-- Modal add-->
+    <div class="modal" id="AdicionarPaciente" tabindex="1" role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Adicionar doador</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                <form action="{{route('Patient.store')}}" method="POST" class="form-horizontal" data-toggle="validator">
 
-                <div class="modal-body">
+                    @csrf
+                    <div class="modal-header">
 
-                    <form action="{{route('Patient.store')}}" method="POST">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
 
+                        <h3 class="modal-title">Adicionar Paciente</h3>
 
-                        @csrf
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="nome">Nome</label>
-                                <input type="text" name="nome" class="form-control" id="nome">
+                    </div>
+
+                    <div class="modal-body">
+                        <input type="hidden" id="id" name="id">
+                        <div class="form-group">
+                            <label for="nome" class="col-md-3 control-label">Nome</label>
+                            <div class="col-md-6">
+                                <input type="text" name="nome" class="form-control" id="nome" required>
+
+                                <span class="help-block with-errors"></span>
                             </div>
+                        </div>
 
+                        <div class="form-group">
+                            <label for="nome" class="col-md-3 control-label">Responsavel</label>
+                            <div class="col-md-6">
 
-                            <div class="form-group col-md-4">
-                                <label for="Responsavel">Responsavel</label>
-                                <input type="text" name="Responsavel" class="form-control" id="Responsavel">
+                                <input type="text" name="responsavel" class="form-control" id="responsavel" required>
+
+                                <span class="help-block with-errors"></span>
                             </div>
+                        </div>
 
-                            <div class="form-group col-md-4">
-                                <label for="email">Nececidade especial</label>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Nececidade especial</label>
+                            <div class="col-md-6">
 
                                 <select class="selected" name="especial" style="width: 100%">
                                     <option value="sim">Sim</option>
                                     <option value="nao">Nao</option>
                                 </select>
 
+
+                                <span class="help-block with-errors"></span>
                             </div>
                         </div>
+
 
                         <div class="form-group">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="endereco">necessidade</label>
-                                    <input type="text" name="necessidade" class="form-control"
-                                           id="necessidade">
-                                </div>
+                            <label for="nome" class="col-md-3 control-label">Qual necessidade</label>
+                            <div class="col-md-6">
+                                <input type="text" name="necessidade" class="form-control"
+                                       id="necessidade">
 
-
-                                <div class="form-group col-md-4">
-                                    <label for="telefone">receita</label>
-                                    <input type="text" name="receita" class="form-control" id="receita">
-                                </div>
-
-                                <div class="form-group">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="modal-footer">
-
-                                    <button type="submit" class="btn btn-primary">Salvar</button>
-
-                                    <button type="button" class="btn btn-warning"
-                                            href="{{route('donor.index')}}">
-                                        Voltar
-                                    </button>
-                                </div>
+                                <span class="help-block with-errors"></span>
                             </div>
                         </div>
-                    </form><!-- Fim form -->
-                </div>
-            </div> <!-- Fim modal-body -->
-        </div>
+
+
+                        <div class="form-group">
+                            <label for="cpf" class="col-md-3 control-label">Receita</label>
+                            <div class="col-md-6">
+                                <input type="text" name="receita" class="form-control" id="receita">
+                                <span class="help-block with-errors"></span>
+                            </div>
+                        </div>
+
+
+                    </div> {{--fim modal body --}}]
+
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-primary btn-save">Salvar</button>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
+                    </div>
+
+                </form>{{--fim do Formulario--}}
+            </div>
+        </div> <!-- Fim modal-body -->
     </div> <!-- Fim Modal -->
+
+
+
+
+
+
+
+
 
 
 @stop
@@ -150,12 +160,54 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('.js-example-basic-single').select2({
+            $('#tablePaciente').DataTable({
 
-                placeholder: 'Selecione o Produto'
+                processing: true,
+                serverSide: true,
+                responsive: true,
+
+                language: {
+                    sEmptyTable: "Nenhum registro encontrado",
+                    sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                    sInfoFiltered: "(Filtrados de _MAX_ registros)",
+                    sInfoPostFix: "",
+                    sInfoThousands: ".",
+                    sLengthMenu: "_MENU_ resultados por página",
+                    sLoadingRecords: "Carregando...",
+                    sProcessing: "Processando...",
+                    sZeroRecords: "Nenhum registro encontrado",
+                    sSearch: "Pesquisar",
+                    oPaginate: {
+                        sNext: "Próximo",
+                        sPrevious: "Anterior",
+                        sFirst: "Primeiro",
+                        sLast: "Último"
+                    },
+                    oAria: {
+                        sSortAscending: ": Ordenar colunas de forma ascendente",
+                        sSortDescending: ": Ordenar colunas de forma descendente"
+                    }
+                },
+
+                order: [[5, "asc"]],
+                ajax: "{{route('pacient.Api.getDatablePaciente')}}",
+                columns: [
+
+                    {data: 'nome'},
+                    {data: 'responsavel'},
+                    {data: 'especiais'},
+                    {data: 'necessidade'},
+                    {data: 'receita'},
+                    {data: 'updated_at'},
+
+                    {data: 'action', orderable: false, searchable: false}
+
+                ],
             });
-        })
 
+
+        });
     </script>
 
 @stop

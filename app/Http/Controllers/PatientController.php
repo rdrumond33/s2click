@@ -51,6 +51,7 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         // Adicionando o Paciente no banco de dados
+
         $this->pacienteModel->addPaciente($request->all());
         $pacientes = $this->pacienteModel->allPaciente();
 

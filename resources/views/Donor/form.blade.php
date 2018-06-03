@@ -3,8 +3,8 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
-            <form method="post" class="form-horizontal" data-toggle="validator">
-                {{csrf_field()}} {{ method_field('POST') }}
+            <form  method="post" class="form-horizontal" data-toggle="validator">
+                @csrf {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
