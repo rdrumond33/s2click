@@ -112,23 +112,25 @@ class PatientController extends Controller
 
     public function doandoProduto(Request $request, $idPacinete)
     {
-
+//        dd($request->all(),$idPacinete);
 
         // request esta vindo o id e quantidade
         $quantidade = $request->amount;
 
         //pego a quantidade da tabela
-        $quantidadeTabelaProduto = Product::all()->find($request->id)->amount;
+        $quantidadeTabelaProduto = Product::all()->find($request->idProduto)->amount;
 
         // pego qual dodador fez a doação
         $Patient = Patient::all()->find($idPacinete);
 
-        $Patient->products()->attach($request->id, ['quantidadeDoada' => $request->amount]);
+        $Patient->products()->attach($request->idProduto, ['quantidadeDoada' => $request->amount]);
 
         // faço o cadastro do produto
-        $produtos = Product::all()->find($request->id)->update([
+        $produtos = Product::all()->find($request->idProduto)->update([
             'amount' => $quantidadeTabelaProduto - $quantidade
         ]);
+
+//        dd($produtos);
 
         return view('Patient.Doando', compact('idPacinete'));
     }

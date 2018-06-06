@@ -50,9 +50,7 @@ class DonorController extends Controller
     public function store(Request $request)
     {
 
-
-
-        return $this->doadorModel->addDonor($request->all());
+        return Donor::create($request->all());
     }
 
     /**
@@ -95,9 +93,7 @@ class DonorController extends Controller
 
 
 
-        return   DB::table('donors')
-            ->where('id', $id)
-            ->update($request->all());;
+        return   Donor::find($id)->update($request->all());
     }
 
     /**

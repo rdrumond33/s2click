@@ -40,14 +40,15 @@
                         <div class="form-group">
                             <label for="nome" class="col-md-3 control-label">Produto</label>
                             <div class="col-md-6">
-                                <select class="SelecionarProduto" name="state" style="width: 100%">
+                                <select class="SelecionarProduto" name="idProduto" style="width: 100%">
                                     @foreach(\App\Product::all() as $produto)
                                         @if($produto->amount == 0)
-                                            {{--<option value="{{$produto->id}}">{{$produto->nome}}--}}
-                                                {{--Indisponivel</option>--}}
+                                            <option value="{{$produto->id}}">{{$produto->nome}}
+                                                Indisponivel {{$produto->id}}
+                                            </option>
                                         @else
-                                        <option value="{{$produto->id}}">{{$produto->nome}}
-                                            &nbsp;Quantidade:{{$produto->amount}}</option>
+                                            <option value="{{$produto->id}}">{{$produto->nome}}
+                                                &nbsp;Quantidade:{{$produto->amount}} {{$produto->id}}</option>
 
                                         @endif
                                     @endforeach

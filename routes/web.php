@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('donor', 'DonorController');
 Route::get('/donor/tabela', 'DonorController@getDataTable')->name('Donor.tabela');
 Route::get('/donor/product/create/{id}', 'DonorController@show')->name('Donor.Product.Show');
+Route::get('/donor/product/create/teste', 'DonorController@store')->name('teet');
 
 
 Route::get('/produto/adicionar', 'ProductController@create')->name('Product.create');

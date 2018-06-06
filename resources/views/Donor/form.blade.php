@@ -3,8 +3,9 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
-            <form  method="post" class="form-horizontal" data-toggle="validator">
-                @csrf {{ method_field('POST') }}
+            <form method="post" class="form-horizontal" data-toggle="validator">
+
+                {{ csrf_field('POST') }} {{ method_field('POST') }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -13,12 +14,13 @@
                 </div>
 
                 <div class="modal-body">
+
                     <input type="hidden" id="id" name="id">
+
                     <div class="form-group">
                         <label for="nome" class="col-md-3 control-label">Nome</label>
                         <div class="col-md-6">
                             <input type="text" name="nome" class="form-control" id="nome" autofocus required>
-                            <span class="help-block with-errors"></span>
                         </div>
                     </div>
 
@@ -34,7 +36,6 @@
                         <label for="email" class="col-md-3 control-label">Email</label>
                         <div class="col-md-6">
                             <input type="email" name="email" class="form-control" id="email" required>
-                            <span class="help-block with-errors"></span>
                         </div>
                     </div>
 
@@ -42,7 +43,6 @@
                         <label for="endereco" class="col-md-3 control-label">Endereco</label>
                         <div class="col-md-6">
                             <input type="text" name="endereco" class="form-control" id="endereco">
-                            <span class="help-block with-errors"></span>
                         </div>
                     </div>
 
@@ -50,7 +50,6 @@
                         <label for="telefone" class="col-md-3 control-label">Telefone</label>
                         <div class="col-md-6">
                             <input type="tel" name="telefone" class="form-control" id="telefone" required>
-                            <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group">
