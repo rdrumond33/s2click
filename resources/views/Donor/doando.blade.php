@@ -28,9 +28,10 @@
 
                     <button type="button" class="fas fa-plus-circle btn btn-default" aria-hidden="true"
                             data-toggle="modal"
-                            data-target="#AdicionarProduto" style="float: right"></button>
+                            data-target="#modal-formAddProduto" style="float: right"></button>
                 </div>
                 <div class="box-body">
+
                     <form action="{{route('Product.RelacinarDonorProduct',$doador->id)}}" method="POST" class="form-horizontal">
 
                         @csrf
@@ -40,8 +41,8 @@
                             <div class="col-md-6">
                                 <select class="SelecionarProduto" name="state" style="width: 100%">
                                     @foreach(\App\Product::all() as $produto)
-                                        <option value="{{$produto->id}}">{{$produto->nome}}
-                                            :{{$produto->amount}}</option>
+                                        <option value="{{$produto->id}}">{{$produto->nome.' '.$produto->marca}}
+                                            &nbsp;<strong>Qdt:&nbsp;{{$produto->amount}}</strong></option>
                                     @endforeach
                                 </select>
                             </div>
@@ -94,6 +95,7 @@
                 </div>
             </div>
         </div>
+        @include('Donor.donorProductadd')
     </div>
 
 
@@ -101,65 +103,6 @@
 
 
 
-    <!-- Modal add-->
-    <div class="modal" id="AdicionarProduto" tabindex="1" role="dialog" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-
-                <form method="post" class="form-horizontal" data-toggle="validator">
-                    {{csrf_field()}} {{ method_field('POST') }}
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                        <h3 class="modal-title">Cadastra Produto Novo</h3>
-
-                    </div>
-
-                    <div class="modal-body">
-                        <input type="hidden" id="id" name="id">
-                        <div class="form-group">
-                            <label for="nome" class="col-md-3 control-label">Nome</label>
-                            <div class="col-md-6">
-                                <input type="text" name="nome" class="form-control" id="nome">
-                                <span class="help-block with-errors"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="cpf" class="col-md-3 control-label">Marca</label>
-                            <div class="col-md-6">
-                                <input type="text" name="marca" class="form-control" id="marca">
-                                <span class="help-block with-errors"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="col-md-3 control-label">Categoria</label>
-                            <div class="col-md-6">
-                                <input type="text" name="categoria" class="form-control" id="categoria">
-                                <span class="help-block with-errors"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="endereco" class="col-md-3 control-label">DescricaoProduto</label>
-                            <div class="col-md-6">
-                                <textarea class="form-control" id="descricaoProduto" name="descricaoProduto" rows="3"></textarea>
-                            </div>
-                        </div>
-                    </div> {{--fim modal body --}}]
-
-                    <div class="modal-footer">
-
-                        <button type="submit" class="btn btn-primary btn-save">Salvar</button>
-
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
-                    </div>
-
-                </form>{{--fim do Formulario--}}
-            </div>
-        </div> <!-- Fim modal-body -->
-    </div> <!-- Fim Modal -->
 
 
 

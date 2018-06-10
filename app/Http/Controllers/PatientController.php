@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Patient;
 use App\Product;
+use Illuminate\Validation\Validator;
 
-
-use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
@@ -50,12 +49,32 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        // Adicionando o Paciente no banco de dados
 
-        $this->pacienteModel->addPaciente($request->all());
-        $pacientes = $this->pacienteModel->allPaciente();
 
-        return view('Patient.index', compact('pacientes'));
+        $teste=$this->validate($request, [
+
+            'nome' => 'required|max:20',
+            'cpfPaciente' => 'nullable|numeric|unique:patients',
+            'responsavel' => 'nullable|max:150',
+            'Cpfresponsavel' => 'nullable|numeric|unique:patients',
+            'especiais' => 'nullable',
+            'necessidade' => 'nullable',
+            'receita' => 'nullable',
+            'descricaoProduto' => 'max:150',
+
+        ], [
+            'nome.max' => 'Nome deve ter no maximo 20 caracter',
+            'cpfPaciente.numeric'=>'cpf do paciente deve ser numerico',
+            'cpfPaciente.unique'=>'cpf deve unico',
+            'Cpfresponsavel.numeric'=>'cpf do responsavel ser numerico',
+            'Cpfresponsavel.unique'=>'cpf deve ser unico',
+
+
+        ]);
+            $this->pacienteModel->addPaciente($request->all());
+
+
+        return view('home');
 
     }
 
@@ -78,7 +97,12 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $paciente = Patient::findOrFail($id);
+
+
+        return view('Patient.edit', compact('paciente'));
+
     }
 
     /**
@@ -90,8 +114,33 @@ class PatientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+
+            'nome' => 'required|max:20',
+            'cpfPaciente' => 'nullable|numeric',
+            'responsavel' => 'nullable|max:150',
+            'Cpfresponsavel' => 'nullable|numeric',
+            'especiais' => 'nullable',
+            'necessidade' => 'nullable',
+            'receita' => 'nullable',
+            'descricaoProduto' => 'max:150',
+
+        ], [
+            'nome.max' => 'Nome deve ter no maximo 20 caracter',
+            'cpfPaciente.numeric'=>'cpf do paciente deve ser numerico',
+            'cpfPaciente.unique'=>'cpf deve unico',
+            'Cpfresponsavel.numeric'=>'cpf do responsavel ser numerico',
+            'Cpfresponsavel.unique'=>'cpf deve ser unico',
+
+
+        ]);
+        $patient = Patient::findOrFail($id);
+        $patient->update($request->all());
+
+
+        return redirect()->route('home');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -101,13 +150,13 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Patient::destroy($id);
     }
 
 
     public function doando(Request $request, $idPacinete)
     {
-        return view('Patient.Doando', compact('idPacinete'));
+        return view('Patient.recebendoDoacao', compact('idPacinete'));
     }
 
     public function doandoProduto(Request $request, $idPacinete)
@@ -132,10 +181,8 @@ class PatientController extends Controller
 
 //        dd($produtos);
 
-        return view('Patient.Doando', compact('idPacinete'));
+        return view('Patient.recebendoDoacao', compact('idPacinete'));
     }
-
-
 
 
 }

@@ -18,52 +18,61 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::resource('donor', 'DonorController');
+Route::group(['prefix' => 'donor'], function () {
+
+    Route::get('/', 'DonorController@index')->name('donor.index');
+    Route::post('/', 'DonorController@store')->name('donor.store');
+    Route::get('/{id}/edit', 'DonorController@edit')->name('donor.edit');
+    Route::match(['get', 'put'], '/update/{id}', 'DonorController@update')->name('donor.update');;
+    Route::delete('/{id}', 'DonorController@destroy')->name('donor.destroy');
 
 
 
+    Route::get('/tabela', 'DonorController@getDataTable')->name('Donor.tabela');
+    Route::get('/product/create/{id}', 'DonorController@doando')->name('Donor.Product.Show');//doando
 
-Route::get('/donor/tabela', 'DonorController@getDataTable')->name('Donor.tabela');
-Route::get('/donor/product/create/{id}', 'DonorController@doando')->name('Donor.Product.Show');//doando
-//Route::get('/donor/product/create/teste', 'DonorController@store')->name('teet');
-
-
-Route::post('/produto', 'ProductController@store')->name('product.store');
-
-Route::post('/product/create/{id}', 'ProductController@RelacinarDonorProduct')->name('Product.RelacinarDonorProduct');
-Route::post('/product/create/', 'ProductController@addProduto')->name('Product.addProduto');
-
-//Route::post('/donor/product/create/{id}', 'ProductController@store')->name('Product.store');
+    Route::get('/api/get', 'ApiController@getDonor')->name('donor.api.getDonor');
+    Route::get('/api/get/product/{id}', 'ApiController@getDonorProduct')->name('donor.api.getDonorProduct');
 
 
-Route::get('/patient', 'PatientController@index')->name('Patient.index');
-Route::post('/patient', 'PatientController@store')->name('Patient.store');
-Route::get('/patient/{id}/Doando', 'PatientController@doando')->name('Patient.doando');
-Route::post('/patient/{id}/Doando', 'PatientController@doandoProduto')->name('Patient.relacionando');
-
-//api
-Route::get('/produto/api', 'ApiController@getDatableProduct')->name('Produto.Api.getDatableProduct');
-Route::get('/produto/api/Doados/{id}', 'ApiController@getDatableProductDoados')->name('Produto.Api.getDatableProductDoados');
+});
 
 
+Route::group(['prefix' => 'product'], function () {
+    Route::get('/', 'ProductController@index');
+    Route::get('/{id}/edit', 'ProductController@edit')->name('product.edit');
+    Route::post('/', 'ProductController@store')->name('product.store');
+    Route::post('/{id}', 'ProductController@storeAdd')->name('product.storeAdd');
+
+    Route::match(['get', 'put'], '/update/{id}', 'ProductController@update')->name('product.update');;
+    Route::delete('/{id}', 'ProductController@destroy')->name('product.destroy');
 
 
+    //API
+    Route::post('/create/{id}', 'ProductController@RelacinarDonorProduct')->name('Product.RelacinarDonorProduct');
+    Route::post('/create/', 'ProductController@addProduto')->name('Product.addProduto');
+    Route::get('/api', 'ApiController@getDatableProduct')->name('Produto.Api.getDatableProduct');
+    Route::get('/api/Doados/{id}',
+        'ApiController@getDatableProductDoados')->name('Produto.Api.getDatableProductDoados');
+});
 
 
-
-Route::get('/donor/api/get', 'ApiController@getDonor')->name('donor.api.getDonor');
-Route::get('/donor/api/get/product/{id}', 'ApiController@getDonorProduct')->name('donor.api.getDonorProduct');
-Route::get('/patient/api', 'ApiController@getDatablePatient')->name('Patient.Api.getDatablePatient');
-Route::get('/pacient/api', 'ApiController@getDatablePaciente')->name('pacient.Api.getDatablePaciente');
+Route::group(['prefix' => 'patient'], function () {
 
 
+    Route::get('/', 'PatientController@index')->name('Patient.index');
+    Route::post('/', 'PatientController@store')->name('patient.store');
 
-//Route::get('/donor/api','DonorController@apiDonor')->name('api.Donor');
+    Route::get('/{id}/edit', 'PatientController@edit')->name('Patient.edit');
 
-Route::get('/Produto/api/teste', 'ProductController@teste')->name('teste.Api');
+    Route::match(['get', 'put'], '/update/{id}', 'PatientController@update')->name('Patient.update');;
+    Route::delete('/{id}', 'PatientController@destroy')->name('Patient.destroy');
+
+    Route::get('/{id}/Doando', 'PatientController@doando')->name('Patient.doando');
+    Route::post('/{id}/Doando', 'PatientController@doandoProduto')->name('Patient.relacionando');
+
+    //API
+    Route::get('/api', 'ApiController@getDatablePatient')->name('Patient.Api.getDatablePatient');
 
 
-
-
-
-
+});

@@ -3,9 +3,19 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
-            <form method="post" class="form-horizontal" data-toggle="validator">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-                {{ csrf_field() }} {{ method_field('POST') }}
+            <form method="POST" class="form-horizontal" data-toggle="validator">
+
+                @csrf
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -20,14 +30,14 @@
                     <div class="form-group">
                         <label for="nome" class="col-md-3 control-label">Nome</label>
                         <div class="col-md-6">
-                            <input type="text" name="nome" class="form-control" id="nome" autofocus required>
+                            <input type="text" name="nome" class="form-control" id="nome" autofocus required value="{{old('nome')}}">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="cpf" class="col-md-3 control-label">CPF</label>
                         <div class="col-md-6">
-                            <input type="text" name="cpf" class="form-control" id="cpf">
+                            <input type="text" name="cpf" class="form-control" id="cpf" value="{{old('cpf')}}">
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
@@ -35,21 +45,21 @@
                     <div class="form-group">
                         <label for="email" class="col-md-3 control-label">Email</label>
                         <div class="col-md-6">
-                            <input type="email" name="email" class="form-control" id="email" required>
+                            <input type="email" name="email" class="form-control" id="email" required value="{{old('email')}}">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="endereco" class="col-md-3 control-label">Endereco</label>
                         <div class="col-md-6">
-                            <input type="text" name="endereco" class="form-control" id="endereco">
+                            <input type="text" name="endereco" class="form-control" id="endereco" value="{{old('endereco')}}">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="telefone" class="col-md-3 control-label">Telefone</label>
                         <div class="col-md-6">
-                            <input type="tel" name="telefone" class="form-control" id="telefone" required>
+                            <input type="tel" name="telefone" class="form-control" id="telefone" required value="{{old('telefone')}}">
                         </div>
                     </div>
                     <div class="form-group">

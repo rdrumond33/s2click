@@ -27,7 +27,7 @@ class ApiController extends Controller
             ->addColumn('action', function ($donors) {
                 return
                     '<a href="donor/product/create/' . $donors->id . '" class="btn btn-xs btn-outline-info "><i class="fas fa-eye" style="font-size: 1.5em"></i></a>' .
-                    '<a href="#" onclick="editForm(' . $donors->id . ')" class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
+                    '<a href="donor/'.$donors->id.'/edit"  class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
                     '<a href="#" onclick="deletDonor(' . $donors->id . ')" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt"style="font-size: 1.5em" ></i></a>';
 
             })->toJson();
@@ -80,8 +80,8 @@ class ApiController extends Controller
             ->addColumn('action', function ($pacientes) {
                 return
                     '<a href="patient/' . $pacientes->id . '/Doando" class="btn btn-xs btn-outline-info "><i class="fas fa-eye" style="font-size: 1.5em"></i></a>' .
-                    '<a href="#" onclick="editar(' . $pacientes->id . ')" class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
-                    '<a href="#" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt"style="font-size: 1.5em" ></i></a>';
+                    '<a href="patient/' . $pacientes->id . '/edit" class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
+                    '<a href="#"  onclick="deletPatient(' . $pacientes->id . ')" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt"style="font-size: 1.5em" ></i></a>';
             })
             ->toJson();
 
@@ -98,8 +98,8 @@ class ApiController extends Controller
         return datatables()->of($product)
             ->addColumn('action', function ($product) {
                 return
-                    '<a href="#" onclick="editProduto(' . $product->id . ')" class="btn btn-xs btn-outline-info " >' . $product->id . '<i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
-                    '<a href="#" onclick="deleteDataProduct(' . $product->id . ')" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" style="font-size: 1.5em"></i> </a>';
+                    '<a href="product/'.$product->id.'/edit"  class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
+                    '<a href="#" onclick="deletproduct(' . $product->id . ')" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" style="font-size: 1.5em"></i> </a>';
             })
             ->editColumn('descricaoProduto', '{!! str_limit($descricaoProduto, 30) !!}')
             ->make(true);///
@@ -128,35 +128,8 @@ class ApiController extends Controller
             ->toJson();
 
 
-//        $pacientes = Patient::all()->find($idPacinete)->products;
-//
-//        return datatables()->of($pacientes)
-//            ->addColumn('action', function ($pacientes) {
-//                return
-//                    '<a href="#" onclick="editForm(' . $pacientes->id . ')" class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
-//                    '<a href="#" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" style="font-size: 1.5em"></i> </a>';
-//            })
-//            ->toJson();
-
-
     }
 
-    public function getDatablePaciente()
-    {
-
-
-        $pacientes = Patient::all();
-
-        return datatables()->of($pacientes)
-            ->addColumn('action', function ($pacientes) {
-                return
-                    '<a href="#" onclick="editForm(' . $pacientes->id . ')" class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
-                    '<a href="#" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" style="font-size: 1.5em"></i> </a>';
-            })
-            ->toJson();
-
-
-    }
 
 
 }

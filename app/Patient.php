@@ -9,7 +9,9 @@ class Patient extends Model
 {
     protected $fillable = [
         'nome',
+        'cpfPaciente',
         'responsavel',
+        'Cpfresponsavel',
         'especiais',
         'necessidade',
         'receita',

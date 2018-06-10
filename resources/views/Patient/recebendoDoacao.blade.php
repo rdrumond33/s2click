@@ -26,7 +26,7 @@
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h2 class="box-title">Produto doado</h2>
+                    <h2 class="box-title">Produtos </h2>
 
 
                 </div>
@@ -43,13 +43,11 @@
                                 <select class="SelecionarProduto" name="idProduto" style="width: 100%">
                                     @foreach(\App\Product::all() as $produto)
                                         @if($produto->amount == 0)
-                                            <option value="{{$produto->id}}">{{$produto->nome}}
-                                                Indisponivel {{$produto->id}}
-                                            </option>
+                                            <option value="{{$produto->id}}">{{$produto->nome." ".$produto->marca}}
+                                                &nbsp;<strong>Qdt:&nbsp; Indisponivel</strong></option>
                                         @else
-                                            <option value="{{$produto->id}}">{{$produto->nome}}
-                                                &nbsp;Quantidade:{{$produto->amount}} {{$produto->id}}</option>
-
+                                            <option value="{{$produto->id}}">{{$produto->nome." ".$produto->marca}}
+                                                &nbsp;<strong>Qdt:&nbsp;{{$produto->amount}}</strong></option>
                                         @endif
                                     @endforeach
                                 </select>

@@ -49,8 +49,22 @@ class DonorController extends Controller
      */
     public function store(Request $request)
     {
+        $validacao = $this->validate($request, [
+            'nome'=>'required',
+            'endereco'=>'nullable',
+            'telefone'=>'nullable',
+            'email'=>'email',
+            'cpf'=>'nullable|numeric',
+            'tipo'
 
-        return Donor::create($request->all());
+        ]);
+
+        $data = $request->all();
+
+        Donor::create($data);
+
+        return redirect()->route('donor.index');
+
     }
 
     /**
@@ -61,6 +75,7 @@ class DonorController extends Controller
      */
     public function doando($id)
     {
+
         $doador = $this->doadorModel->getDoadores()->find($id);
 
         return view('Donor.doando', compact('doador'));
@@ -75,10 +90,9 @@ class DonorController extends Controller
     public function edit($id)
     {
 
-        $doador = Donor::find($id);
+        $doador = Donor::findOrFail($id);
 
-
-        return $doador;
+        return view('Donor.edit', compact('doador'));
     }
 
     /**
@@ -90,10 +104,21 @@ class DonorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'nome'=>'required',
+            'endereco'=>'nullable',
+            'telefone'=>'nullable',
+            'email'=>'email',
+            'cpf'=>'nullable|numeric',
+            'tipo'
+
+        ]);
+
+        $doador = Donor::findOrFail($id);
+        $doador->update($request->all());
 
 
-
-        return   Donor::find($id)->update($request->all());
+        return redirect()->route('donor.index');
     }
 
     /**

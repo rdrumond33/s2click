@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<img src="http://localhost/s2click/public/logo.png"  style="width: 100px;height:40px">',
+    'logo' => '<img src="http://localhost/dev/s2click/public/logo.png"  style="width: 100px;height:40px">',
 
-    'logo_mini' => ' <img src="http://localhost/s2click/public/s2icon.ico">',
+    'logo_mini' => ' <img src="http://localhost/dev/s2click/public/s2icon.ico">',
 
 
     /*
@@ -113,16 +113,7 @@ return [
             'url' => 'donor',
             'icon' => 'fas fa-hand-holding-heart',
         ],
-        [
-            'text' => 'Paciente',
-            'url' => 'patient',
-            'icon' => 'list-ul',
-        ],
-        [
-            'text' => 'Cadastrar Produto',
-            'url' => 'produto/adicionar',
-            'icon' => 'list-ul',
-        ],
+
         'Configuração',
         [
             'text' => 'Usuario',
@@ -137,42 +128,6 @@ return [
             ],
 
         ],
-        [
-            'text' => 'Relatorio/Grafico',
-            'icon' => 'share',
-            'submenu' => [
-                [
-                    'text' => 'Grafico',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'relatorio',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'Level Two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'Level Two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'Level Three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'Level Three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-
-            ],
-        ],
-
 
     ],
 

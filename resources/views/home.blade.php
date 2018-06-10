@@ -130,7 +130,7 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Paticente</h3>
-                    <a onclick="addForm()" class="btn btn-default" style="float: right;margin-right: 5px"><i
+                    <a onclick="addFormPatient()" class="btn btn-default" style="float: right;margin-right: 5px"><i
                                 class="fab fa-accessible-icon" style="padding-right: 10px"></i>Adicionar</a>
                 </div>
                 <!-- /.box-header -->
@@ -144,12 +144,13 @@
                                     <thead>
                                     <tr>
                                         <th>Nome</th>
+                                        <th>Cpf Paciente</th>
                                         <th>Responsavel</th>
+                                        <th>Cpf responsavel</th>
                                         <th>Especiais</th>
                                         <th>Necessidade</th>
                                         <th>Receita</th>
                                         <th>Ultima Doação</th>
-                                        <th>Cadastrado</th>
                                         <th></th>
 
 
@@ -164,13 +165,12 @@
             </div>
         </div>
 
-        {{--@include('Donor.form')--}}
-        {{--@include('Donor.formEdit')--}}
         @include('Product.formAddProduto')
 
 
     </div>
 
+        @include('Patient.formPatient')
 
 
 
@@ -181,209 +181,152 @@
 
     <script>
 
-          $table = $('#tablePaciente').DataTable({
-                processing: true,
-                serverSide: true,
-                responsive: true,
-                language: {
-                    sEmptyTable: "Nenhum registro encontrado",
-                    sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
-                    sInfoFiltered: "(Filtrados de _MAX_ registros)",
-                    sInfoPostFix: "",
-                    sInfoThousands: ".",
-                    sLengthMenu: "_MENU_ resultados por página",
-                    sLoadingRecords: "Carregando...",
-                    sProcessing: "Processando...",
-                    sZeroRecords: "Nenhum registro encontrado",
-                    sSearch: "Pesquisar",
-                    oPaginate: {
-                        sNext: "Próximo",
-                        sPrevious: "Anterior",
-                        sFirst: "Primeiro",
-                        sLast: "Último"
-                    },
-                    oAria: {
-                        sSortAscending: ": Ordenar colunas de forma ascendente",
-                        sSortDescending: ": Ordenar colunas de forma descendente"
-                    }
+        var $table = $('#tablePaciente').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            language: {
+                sEmptyTable: "Nenhum registro encontrado",
+                sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                sInfoFiltered: "(Filtrados de _MAX_ registros)",
+                sInfoPostFix: "",
+                sInfoThousands: ".",
+                sLengthMenu: "_MENU_ resultados por página",
+                sLoadingRecords: "Carregando...",
+                sProcessing: "Processando...",
+                sZeroRecords: "Nenhum registro encontrado",
+                sSearch: "Pesquisar",
+                oPaginate: {
+                    sNext: "Próximo",
+                    sPrevious: "Anterior",
+                    sFirst: "Primeiro",
+                    sLast: "Último"
                 },
-                ajax: "{{route('Patient.Api.getDatablePatient')}}",
-                columns: [
+                oAria: {
+                    sSortAscending: ": Ordenar colunas de forma ascendente",
+                    sSortDescending: ": Ordenar colunas de forma descendente"
+                }
+            },
+            ajax: "{{route('Patient.Api.getDatablePatient')}}",
+            columns: [
 
-                    {data: 'nome', orderable: false, searchable: true},
-                    {data: 'responsavel', orderable: false, searchable: false},
-                    {data: 'especiais', orderable: false, searchable: false},
-                    {data: 'necessidade', orderable: false, searchable: false},
-                    {data: 'receita', orderable: false, searchable: false},
-                    {data: 'ultimaDoacao'},
-                    {data: 'created_at', orderable: false, searchable: false},
-                    {data: 'action', orderable: false, searchable: false}
+                {data: 'nome', orderable: false, searchable: true},
+                {data: 'cpfPaciente', orderable: false, searchable: true},
+                {data: 'responsavel', orderable: false, searchable: false},
+                {data: 'Cpfresponsavel', orderable: false, searchable: true},
 
-                ],
+                {data: 'especiais', orderable: false, searchable: false},
+                {data: 'necessidade', orderable: false, searchable: false},
+                {data: 'receita', orderable: false, searchable: false},
+                {data: 'ultimaDoacao'},
+                {data: 'action', orderable: false, searchable: false}
 
-            });
+            ],
 
-            $table2 = $('#tableProduto').DataTable({
-                processing: true,
-                serverSide: true,
-                responsive: true,
+        });
 
-                language: {
-                    sEmptyTable: "Nenhum registro encontrado",
-                    sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
-                    sInfoFiltered: "(Filtrados de _MAX_ registros)",
-                    sInfoPostFix: "",
-                    sInfoThousands: ".",
-                    sLengthMenu: "_MENU_ resultados por página",
-                    sLoadingRecords: "Carregando...",
-                    sProcessing: "Processando...",
-                    sZeroRecords: "Nenhum registro encontrado",
-                    sSearch: "Pesquisar",
-                    oPaginate: {
-                        sNext: "Próximo",
-                        sPrevious: "Anterior",
-                        sFirst: "Primeiro",
-                        sLast: "Último"
-                    },
-                    oAria: {
-                        sSortAscending: ": Ordenar colunas de forma ascendente",
-                        sSortDescending: ": Ordenar colunas de forma descendente"
-                    }
+        var $tableproduto = $('#tableProduto').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+
+            language: {
+                sEmptyTable: "Nenhum registro encontrado",
+                sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                sInfoFiltered: "(Filtrados de _MAX_ registros)",
+                sInfoPostFix: "",
+                sInfoThousands: ".",
+                sLengthMenu: "_MENU_ resultados por página",
+                sLoadingRecords: "Carregando...",
+                sProcessing: "Processando...",
+                sZeroRecords: "Nenhum registro encontrado",
+                sSearch: "Pesquisar",
+                oPaginate: {
+                    sNext: "Próximo",
+                    sPrevious: "Anterior",
+                    sFirst: "Primeiro",
+                    sLast: "Último"
                 },
+                oAria: {
+                    sSortAscending: ": Ordenar colunas de forma ascendente",
+                    sSortDescending: ": Ordenar colunas de forma descendente"
+                }
+            },
 
-                ajax: "{{route('Produto.Api.getDatableProduct')}}",
-                columns: [
+            ajax: "{{route('Produto.Api.getDatableProduct')}}",
+            columns: [
 
-                    {data: 'nome'},
-                    {data: 'marca'},
-                    {data: 'categoria'},
-                    {data: 'descricaoProduto'},
-                    {data: 'amount'},
-                    {data: 'created_at'},
+                {data: 'nome'},
+                {data: 'marca'},
+                {data: 'categoria'},
+                {data: 'descricaoProduto'},
+                {data: 'amount'},
+                {data: 'created_at'},
 
-                    {data: 'action', orderable: false, searchable: false}
+                {data: 'action', orderable: false, searchable: false}
 
-                ],
-            });
+            ],
+        });
 
-
-
-        function addForm() {
-            save_method = "add";
-            console.log(save_method);
-            $('#modal-form').modal('show');
-            $('#modal-form form')[0].reset();
-            $('.modal-title').text('Adicionar Doador');
-        }
 
         function addFormProduto() {
-            save_method='add';
-            console.log(save_method+'produto');
-
-            $('input[name=_method]').val('POST');
             $('#modal-formAddProduto').modal('show');
             $('#modal-formAddProduto form')[0].reset();
             $('.modal-title').text('Adicionar Produto');
         }
 
-        $(function () {
-            $('#modal-formAddProduto from').validator().on('submit',function (e) {
-                if (!e.isDefaultPrevented()){
-                   var id=$('#id').val();
-
-                    if (save_method == 'add') {
-                        url="{{ route('product.store') }}";
-                    }
-                    else {
-                        url = "{{url('product')}}" +'/'+ id;
-                    }
-                   $.ajax({
-                       url:url,
-                       type:"POST",
-                       data:$('#modal-formAddProduto form').serialize(),
-                       success: function ($data) {
-                           $('#modal-formAddProduto').modal('hide')
-                       },
-                       error:function () {
-                           alert("errro")
-                       }
-                   });
-                   return false;
-                }
-            });
-        });
-
-        function editProduto(idproduto) {
-
-            save_method = 'edit';
-            console.log(save_method);
-            $('#modal-formEditProduto form')[0].reset();
-            $.ajax({
-                url: "{{ url('product') }}" + '/' + idproduto + "/edit",
-                type: "GET",
-                dataType: "JSON",
-                success: function (data) {
-                    $('#modal-formEditProduto').modal('show');
-                    $('.modal-title').text('Editar Produto');
-
-
-                },
-
-                error: function () {
-                    alert("Nothin DATA")
-                }
-            });
-
-
-        }
-
-
-
-        function editForm(id) {
-
-            save_method = 'edit';
-            console.log(save_method);
-            $('#modal-formEdit form')[0].reset();
-            $.ajax({
-                url: "{{url('donor')}}" + '/' + id + "/edit",
-                type: "GET",
-                dataType: "JSON",
-                success: function (data) {
-                    $('#modal-formEdit').modal('show');
-                    $('.modal-title').text('Editar Doador');
-
-                    $('#id').val(data.id);
-                    $('#nome').val(data.nome);
-                    $('#cpf').val(data.cpf);
-                    $('#email').val(data.email);
-                    $('#endereco').val(data.endereco);
-                    $('#telefone').val(data.telefone);
-                    $('#tipo').val(data.tipo);
-
-                },
-
-                error: function () {
-                    alert("Nothin DATA")
-                }
-            });
-
-        }
-
-        function deletDonor(id) {
-            var popup = confirm("Deseja mesmo deletar");
+        function deletproduct(id) {
+            var popup = confirm("Deseja mesmo deletar este Produto");
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
 
             if (popup == true) {
 
                 $.ajax({
-                    url: "{{url('donor')}}" + '/' + id,
+                    url: "{{url('product')}}" + '/' + id,
                     type: "POST",
                     data: {'_method': 'DELETE', '_token': csrf_token},
                     success: function (data) {
-                        $('#tabelaDoadores').DataTable().ajax.reload();
-                        console.log(data);
+                        $('#tableProduto').DataTable().ajax.reload();
+                        window.location.reload();
+
+                    },
+                    error: function () {
+                        alert("ERRO")
+                    }
+
+                });
+
+
+            }
+
+
+        }
+
+        //--------------Paciente---------------
+        function addFormPatient() {
+            $('#modal-formPatient').modal('show');
+            $('#modal-formPatient form')[0].reset();
+            $('.modal-title').text('Adicionar Paciente');
+        }
+
+        function deletPatient(id) {
+            var popup = confirm("Deseja Eliminar este Paciente ");
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+            if (popup == true) {
+
+                $.ajax({
+                    url: "{{url('patient')}}" + '/' + id,
+                    type: "POST",
+                    data: {'_method': 'DELETE', '_token': csrf_token},
+                    success: function (data) {
+                        window.location.reload();
+                        $('#tablePaciente').DataTable().ajax.reload();
+                        window.location.reload();
+
+
                     },
                     error: function () {
                         alert("ERRO")
@@ -398,6 +341,9 @@
         }
 
     </script>
+
+
+
 
 
 @stop

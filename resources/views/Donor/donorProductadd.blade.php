@@ -16,7 +16,7 @@
             </div>
 
 
-            <form action="{{route('product.store')}}" method="POST" class="form-horizontal">
+            <form action="{{route('product.storeAdd',$doador->id)}}" method="POST" class="form-horizontal">
 
                 @csrf
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Donor;
 use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Validator;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -53,28 +55,46 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        $data=$request->all();
+        $this->validate($request, [
+        'nome' => 'required|max:20',
+        'marca' => 'required',
+        'descricaoProduto' => 'max:150',
 
-        return Product::create($data);
+    ], [
+        'nome.max' => 'Nome deve ter no maximo 20 caracter',
+    ]);
+
+        $data = $request->all();
+
+        Product::create($data);
+
+        return redirect()->route('home');
 
 
-
-
-//        $this->produtoModel->addProduct($request->all());
-//
-//        $doador = $this->doadorModel->getDoadores()->find($id);
-//
-//        return view('Donor.show', compact('doador'));
     }
 
-    public function addProduto(Request $request)
+    public function storeAdd(Request $request,$id)
     {
 
-        $this->produtoModel->addProduct($request->all());
-        return view('home');
+        $this->validate($request, [
+            'nome' => 'required|max:20',
+            'marca' => 'required',
+            'descricaoProduto' => 'max:150',
+
+        ], [
+            'nome.max' => 'Nome deve ter no maximo 20 caracter',
+        ]);
+
+        $data = $request->all();
+
+        Product::create($data);
+
+        $doador=Donor::find($id);
+
+        return redirect()->route('Donor.Product.Show',$id);
+
+
     }
-
-
 
 
     /**
@@ -96,9 +116,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $produto = Product::find($id);
+        $product = Product::findOrFail($id);
 
-        return $produto;
+        return view('Product.edit', compact('product'));
 
     }
 
@@ -111,9 +131,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $teste=$this->validate($request, [
+            'nome' => 'required|max:20',
+            'marca' => 'required',
+            'descricaoProduto' => 'max:150',
+
+        ], [
+            'nome.max' => 'Nome deve ter no maximo 20 caracter',
+        ]);
+
+        $produto = Product::findOrFail($id);
+        $produto->update($request->all());
 
 
-
+        return redirect()->route('home');
     }
 
     /**
@@ -124,11 +155,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::destroy($id);
+
     }
 
     public function RelacinarDonorProduct(Request $request, $idDoador)
     {
+
+
+       
         // request esta vindo o id e quantidade
         $quantidade = $request->amount;
 
@@ -145,10 +180,11 @@ class ProductController extends Controller
 
         $doador->products()->attach($request->state, ['quantidade' => $request->amount]);
 
-        return view('Donor.show', compact('doador'));
+        return view('Donor.doando', compact('doador'));
     }
 
-    public function apiProduto(){
+    public function apiProduto()
+    {
 
 
     }
