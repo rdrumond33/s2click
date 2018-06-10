@@ -19,16 +19,21 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::resource('donor', 'DonorController');
+
+
+
+
 Route::get('/donor/tabela', 'DonorController@getDataTable')->name('Donor.tabela');
-Route::get('/donor/product/create/{id}', 'DonorController@show')->name('Donor.Product.Show');
-Route::get('/donor/product/create/teste', 'DonorController@store')->name('teet');
+Route::get('/donor/product/create/{id}', 'DonorController@doando')->name('Donor.Product.Show');//doando
+//Route::get('/donor/product/create/teste', 'DonorController@store')->name('teet');
 
 
-Route::get('/produto/adicionar', 'ProductController@create')->name('Product.create');
+Route::post('/produto', 'ProductController@store')->name('product.store');
 
 Route::post('/product/create/{id}', 'ProductController@RelacinarDonorProduct')->name('Product.RelacinarDonorProduct');
+Route::post('/product/create/', 'ProductController@addProduto')->name('Product.addProduto');
 
-Route::post('/donor/product/create/{id}', 'ProductController@store')->name('Product.store');
+//Route::post('/donor/product/create/{id}', 'ProductController@store')->name('Product.store');
 
 
 Route::get('/patient', 'PatientController@index')->name('Patient.index');
@@ -37,13 +42,19 @@ Route::get('/patient/{id}/Doando', 'PatientController@doando')->name('Patient.do
 Route::post('/patient/{id}/Doando', 'PatientController@doandoProduto')->name('Patient.relacionando');
 
 //api
+Route::get('/produto/api', 'ApiController@getDatableProduct')->name('Produto.Api.getDatableProduct');
+Route::get('/produto/api/Doados/{id}', 'ApiController@getDatableProductDoados')->name('Produto.Api.getDatableProductDoados');
+
+
+
+
+
+
 
 Route::get('/donor/api/get', 'ApiController@getDonor')->name('donor.api.getDonor');
 Route::get('/donor/api/get/product/{id}', 'ApiController@getDonorProduct')->name('donor.api.getDonorProduct');
 Route::get('/patient/api', 'ApiController@getDatablePatient')->name('Patient.Api.getDatablePatient');
-Route::get('/produto/api', 'ApiController@getDatableProduct')->name('Produto.Api.getDatableProduct');
 Route::get('/pacient/api', 'ApiController@getDatablePaciente')->name('pacient.Api.getDatablePaciente');
-Route::get('/produto/api/Doados/{id}', 'ApiController@getDatableProductDoados')->name('Produto.Api.getDatableProductDoados');
 
 
 

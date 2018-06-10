@@ -93,16 +93,16 @@ class ApiController extends Controller
     {
 
 
-        $pacientes = Product::all();
+        $product = Product::all();
 
-        return datatables()->of($pacientes)
-            ->addColumn('action', function ($pacientes) {
+        return datatables()->of($product)
+            ->addColumn('action', function ($product) {
                 return
-                    '<a href="#" onclick="editForm(' . $pacientes->id . ')" class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
-                    '<a href="#" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" style="font-size: 1.5em"></i> </a>';
+                    '<a href="#" onclick="editProduto(' . $product->id . ')" class="btn btn-xs btn-outline-info " >' . $product->id . '<i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
+                    '<a href="#" onclick="deleteDataProduct(' . $product->id . ')" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" style="font-size: 1.5em"></i> </a>';
             })
             ->editColumn('descricaoProduto', '{!! str_limit($descricaoProduto, 30) !!}')
-            ->toJson();
+            ->make(true);///
 
     }
 

@@ -13,18 +13,8 @@ class DonorSeeder extends Seeder
      */
     public function run()
     {
-        foreach (range(1, 10) as $i) {
-            $dados=[
-                'nome'=>"Doador$i",
-                'endereco'=>"rua $i",
-                'telefone' =>"3133333",
-                'email'=>"Teste$i@hotmail.com",
-                'cpf'=>"10102020$i",
-                'tipo'=>'esporadico'
-            ];
-
-            DB::table('donors')->insert($dados);
-        }
-
+        factory(App\Donor::class, 50)->create();
     }
+
 }
+

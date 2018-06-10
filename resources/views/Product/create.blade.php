@@ -12,7 +12,7 @@
 
         <div class="form">
 
-            <form action="{}" method="POST">
+            <form action="" method="POST">
 
                 @csrf
                 <div class="form-group">

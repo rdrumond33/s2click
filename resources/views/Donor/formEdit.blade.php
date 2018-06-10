@@ -1,11 +1,11 @@
 <!-- Modal add-->
-<div class="modal" id="modal-form" tabindex="1" role="dialog" aria-hidden="true" data-backdrop="static">
+<div class="modal" id="modal-formEdit" tabindex="1" role="dialog" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
-            <form method="post" class="form-horizontal" data-toggle="validator">
+            <form method="PATCH" class="form-horizontal" data-toggle="validator">
 
-                {{ csrf_field() }} {{ method_field('POST') }}
+                @csrf
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -15,9 +15,7 @@
 
                 <div class="modal-body">
 
-                    <input type="hidden" id="id" name="id">
-
-                    <div class="form-group">
+                  <div class="form-group">
                         <label for="nome" class="col-md-3 control-label">Nome</label>
                         <div class="col-md-6">
                             <input type="text" name="nome" class="form-control" id="nome" autofocus required>

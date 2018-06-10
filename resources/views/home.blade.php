@@ -28,7 +28,7 @@
                 <div class="icon">
                     <i class="ion ion-person-add"></i>
                 </div>
-                <a href="#" class="small-box-footer">Para saber quais<i class="fa fa-arrow-circle-right"></i></a>
+                {{--<a href="#" class="small-box-footer">Para saber quais<i class="fa fa-arrow-circle-right"></i></a>--}}
             </div>
         </div>
 
@@ -50,7 +50,7 @@
                 <div class="icon">
                     <i class="fa fa-shopping-cart"></i>
                 </div>
-                <a href="#" class="small-box-footer">Mais informações <i class="fa fa-arrow-circle-right"></i></a>
+                {{--<a href="#" class="small-box-footer">Mais informações <i class="fa fa-arrow-circle-right"></i></a>--}}
             </div>
         </div>
 
@@ -65,7 +65,7 @@
                 <div class="icon">
                     <i class="fas fa-donate"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                {{--<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>--}}
             </div>
         </div>
 
@@ -80,7 +80,7 @@
                 <div class="icon">
                     <i class="fa fa-wheelchair" aria-hidden="true"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                {{--<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>--}}
             </div>
         </div>
 
@@ -95,7 +95,8 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Produtos</h3>
-                    <a onclick="addForm()" class="btn btn-default" style="float: right;margin-right: 5px"><i
+
+                    <a onclick="addFormProduto()" class="btn btn-default" style="float: right;margin-right: 5px"><i
                                 class="fab fa-product-hunt" style="padding-right: 10px"></i>Adicionar</a>
                 </div>
                 <!-- /.box-header -->
@@ -107,12 +108,12 @@
                                 <table id="tableProduto" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
                                     <tr>
-                                        <th>nome</th>
-                                        <th>marca</th>
-                                        <th>categoria</th>
-                                        <th>descricaoProduto</th>
-                                        <th>amount</th>
-                                        <th>Cadastrado</th>
+                                        <th>Nome</th>
+                                        <th>Marca</th>
+                                        <th>Categoria</th>
+                                        <th>DescricaoProduto</th>
+                                        <th>Amount</th>
+                                        <th>Data de cadastro</th>
                                         <th></th>
                                     <tfoot></tfoot>
                                 </table>
@@ -142,12 +143,12 @@
                                        style="width:100%">
                                     <thead>
                                     <tr>
-                                        <th>nome</th>
-                                        <th>responsavel</th>
-                                        <th>especiais</th>
-                                        <th>necessidade</th>
-                                        <th>receita</th>
-                                        <th>ultimaDoacao</th>
+                                        <th>Nome</th>
+                                        <th>Responsavel</th>
+                                        <th>Especiais</th>
+                                        <th>Necessidade</th>
+                                        <th>Receita</th>
+                                        <th>Ultima Doação</th>
                                         <th>Cadastrado</th>
                                         <th></th>
 
@@ -162,31 +163,16 @@
                 </div>
             </div>
         </div>
+
+        {{--@include('Donor.form')--}}
+        {{--@include('Donor.formEdit')--}}
+        @include('Product.formAddProduto')
+
+
     </div>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
 
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 @stop
@@ -195,9 +181,7 @@
 
     <script>
 
-        $(document).ready(function () {
-
-            $table = $('#tablePaciente').DataTable({
+          $table = $('#tablePaciente').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -224,11 +208,10 @@
                         sSortDescending: ": Ordenar colunas de forma descendente"
                     }
                 },
-                order: [[5, "asc"]],
                 ajax: "{{route('Patient.Api.getDatablePatient')}}",
                 columns: [
 
-                    {data: 'nome', orderable: false, searchable: false},
+                    {data: 'nome', orderable: false, searchable: true},
                     {data: 'responsavel', orderable: false, searchable: false},
                     {data: 'especiais', orderable: false, searchable: false},
                     {data: 'necessidade', orderable: false, searchable: false},
@@ -270,7 +253,6 @@
                     }
                 },
 
-                order: [[5, "asc"]],
                 ajax: "{{route('Produto.Api.getDatableProduct')}}",
                 columns: [
 
@@ -285,8 +267,135 @@
 
                 ],
             });
-        })
-        ;
+
+
+
+        function addForm() {
+            save_method = "add";
+            console.log(save_method);
+            $('#modal-form').modal('show');
+            $('#modal-form form')[0].reset();
+            $('.modal-title').text('Adicionar Doador');
+        }
+
+        function addFormProduto() {
+            save_method='add';
+            console.log(save_method+'produto');
+
+            $('input[name=_method]').val('POST');
+            $('#modal-formAddProduto').modal('show');
+            $('#modal-formAddProduto form')[0].reset();
+            $('.modal-title').text('Adicionar Produto');
+        }
+
+        $(function () {
+            $('#modal-formAddProduto from').validator().on('submit',function (e) {
+                if (!e.isDefaultPrevented()){
+                   var id=$('#id').val();
+
+                    if (save_method == 'add') {
+                        url="{{ route('product.store') }}";
+                    }
+                    else {
+                        url = "{{url('product')}}" +'/'+ id;
+                    }
+                   $.ajax({
+                       url:url,
+                       type:"POST",
+                       data:$('#modal-formAddProduto form').serialize(),
+                       success: function ($data) {
+                           $('#modal-formAddProduto').modal('hide')
+                       },
+                       error:function () {
+                           alert("errro")
+                       }
+                   });
+                   return false;
+                }
+            });
+        });
+
+        function editProduto(idproduto) {
+
+            save_method = 'edit';
+            console.log(save_method);
+            $('#modal-formEditProduto form')[0].reset();
+            $.ajax({
+                url: "{{ url('product') }}" + '/' + idproduto + "/edit",
+                type: "GET",
+                dataType: "JSON",
+                success: function (data) {
+                    $('#modal-formEditProduto').modal('show');
+                    $('.modal-title').text('Editar Produto');
+
+
+                },
+
+                error: function () {
+                    alert("Nothin DATA")
+                }
+            });
+
+
+        }
+
+
+
+        function editForm(id) {
+
+            save_method = 'edit';
+            console.log(save_method);
+            $('#modal-formEdit form')[0].reset();
+            $.ajax({
+                url: "{{url('donor')}}" + '/' + id + "/edit",
+                type: "GET",
+                dataType: "JSON",
+                success: function (data) {
+                    $('#modal-formEdit').modal('show');
+                    $('.modal-title').text('Editar Doador');
+
+                    $('#id').val(data.id);
+                    $('#nome').val(data.nome);
+                    $('#cpf').val(data.cpf);
+                    $('#email').val(data.email);
+                    $('#endereco').val(data.endereco);
+                    $('#telefone').val(data.telefone);
+                    $('#tipo').val(data.tipo);
+
+                },
+
+                error: function () {
+                    alert("Nothin DATA")
+                }
+            });
+
+        }
+
+        function deletDonor(id) {
+            var popup = confirm("Deseja mesmo deletar");
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+            if (popup == true) {
+
+                $.ajax({
+                    url: "{{url('donor')}}" + '/' + id,
+                    type: "POST",
+                    data: {'_method': 'DELETE', '_token': csrf_token},
+                    success: function (data) {
+                        $('#tabelaDoadores').DataTable().ajax.reload();
+                        console.log(data);
+                    },
+                    error: function () {
+                        alert("ERRO")
+                    }
+
+                });
+
+
+            }
+
+
+        }
 
     </script>
 

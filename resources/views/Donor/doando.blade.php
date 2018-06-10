@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'S2Click')
+@section('title', 'S2Click||Doando')
 
 @section('content_header')
     <h1>
@@ -169,7 +169,7 @@
     <script>
 
         $('.SelecionarProduto').select2({
-            placeholder: 'Select an option'
+            placeholder: 'Selecione um Produto'
         });
 
 

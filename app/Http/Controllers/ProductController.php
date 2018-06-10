@@ -50,15 +50,31 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
+    {
+
+        $data=$request->all();
+
+        return Product::create($data);
+
+
+
+
+//        $this->produtoModel->addProduct($request->all());
+//
+//        $doador = $this->doadorModel->getDoadores()->find($id);
+//
+//        return view('Donor.show', compact('doador'));
+    }
+
+    public function addProduto(Request $request)
     {
 
         $this->produtoModel->addProduct($request->all());
-
-        $doador = $this->doadorModel->getDoadores()->find($id);
-
-        return view('Donor.show', compact('doador'));
+        return view('home');
     }
+
+
 
 
     /**
@@ -80,7 +96,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $produto = Product::find($id);
+
+        return $produto;
+
     }
 
     /**
@@ -92,7 +111,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+
+
     }
 
     /**
@@ -127,12 +148,9 @@ class ProductController extends Controller
         return view('Donor.show', compact('doador'));
     }
 
+    public function apiProduto(){
 
 
-    public function teste(Request $request)
-    {
-
-        dd($request->all());
     }
 
 

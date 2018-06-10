@@ -59,11 +59,11 @@ class DonorController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function doando($id)
     {
         $doador = $this->doadorModel->getDoadores()->find($id);
 
-        return view('Donor.show', compact('doador'));
+        return view('Donor.doando', compact('doador'));
     }
 
     /**

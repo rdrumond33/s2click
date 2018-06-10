@@ -17,7 +17,9 @@ class CreatePatientsTable extends Migration
 
             $table->increments('id');
             $table->string('nome');
+            $table->string('cpfPaciente')->unique();
             $table->string('responsavel')->nullable();
+            $table->string('Cpfresponsavel')->unique()->nullable();
             $table->enum('especiais', ['sim', 'nao']);
             $table->string('necessidade')->nullable();
             $table->text('receita')->nullable();

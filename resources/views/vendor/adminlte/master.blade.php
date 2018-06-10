@@ -3,12 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <title>@yield('title_prefix', config('adminlte.title_prefix', ''))
         @yield('title', config('adminlte.title', 'AdminLTE 2'))
         @yield('title_postfix', config('adminlte.title_postfix', ''))</title>
+
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="csrf-token" content="{{csrf_token()}}">
+
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
 
@@ -48,17 +51,18 @@
     <![endif]-->
 
     <!-- Google Font -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,700,700i" rel="stylesheet">
+    {{--<link rel="stylesheet"--}}
+          {{--href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">--}}
 </head>
 <body class="hold-transition @yield('body_class')">
 
 @yield('body')
 
-<script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/vendor/jquerry-3.3.1/dist/jquery-3.3.1.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
 
 @if(config('adminlte.plugins.select2'))
     <!-- Select2 -->

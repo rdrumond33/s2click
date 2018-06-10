@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 's2click',
+    'title' => 'S2click',
 
     'title_prefix' => '',
 
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>S2</b>Click',
+    'logo' => '<img src="http://localhost/s2click/public/logo.png"  style="width: 100px;height:40px">',
 
-    'logo_mini' => '<b>S</b>2',
+    'logo_mini' => ' <img src="http://localhost/s2click/public/s2icon.ico">',
 
 
     /*
@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'skin' => 'red-light',
+    'skin' => 'blue-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -109,61 +109,61 @@ return [
     */
     'menu' => [
         [
-            'text'        => 'Doadores',
-            'url'         => 'donor',
-            'icon'        => 'list-ul',
+            'text' => 'Doadores',
+            'url' => 'donor',
+            'icon' => 'fas fa-hand-holding-heart',
         ],
         [
-            'text'        => 'Paciente',
-            'url'         => 'patient',
-            'icon'        => 'list-ul',
+            'text' => 'Paciente',
+            'url' => 'patient',
+            'icon' => 'list-ul',
         ],
         [
-            'text'        => 'Cadastrar Produto',
-            'url'         => 'produto/adicionar',
-            'icon'        => 'list-ul',
+            'text' => 'Cadastrar Produto',
+            'url' => 'produto/adicionar',
+            'icon' => 'list-ul',
         ],
         'Configuração',
         [
             'text' => 'Usuario',
-            'url'  => 'admin/settings',
+            'url' => 'admin/settings',
             'icon' => 'user',
             'submenu' => [
                 [
                     'text' => 'Mudar senha',
-                    'url'  => 'admin/settings',
+                    'url' => 'admin/settings',
                     'icon' => 'lock',
                 ],
             ],
 
         ],
         [
-            'text'    => 'Relatorio/Grafico',
-            'icon'    => 'share',
+            'text' => 'Relatorio/Grafico',
+            'icon' => 'share',
             'submenu' => [
                 [
                     'text' => 'Grafico',
-                    'url'  => '#',
+                    'url' => '#',
                 ],
                 [
-                    'text'    => 'relatorio',
-                    'url'     => '#',
+                    'text' => 'relatorio',
+                    'url' => '#',
                     'submenu' => [
                         [
                             'text' => 'Level Two',
-                            'url'  => '#',
+                            'url' => '#',
                         ],
                         [
-                            'text'    => 'Level Two',
-                            'url'     => '#',
+                            'text' => 'Level Two',
+                            'url' => '#',
                             'submenu' => [
                                 [
                                     'text' => 'Level Three',
-                                    'url'  => '#',
+                                    'url' => '#',
                                 ],
                                 [
                                     'text' => 'Level Three',
-                                    'url'  => '#',
+                                    'url' => '#',
                                 ],
                             ],
                         ],
@@ -209,8 +209,8 @@ return [
 
     'plugins' => [
         'datatables' => true,
-        'select2'    => true,
-        'chartjs'    => true,
+        'select2' => true,
+        'chartjs' => true,
 
     ],
 ];
