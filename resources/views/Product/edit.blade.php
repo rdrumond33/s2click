@@ -77,7 +77,7 @@
 
                         <button type="submit" class="btn btn-primary btn-save">Salvar</button>
 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><a href="{{route('home')}}" class="link">Voltar</a></button>
                     </div>
                 </div>
 

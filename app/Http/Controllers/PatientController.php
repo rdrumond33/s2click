@@ -51,7 +51,7 @@ class PatientController extends Controller
     {
 
 
-        $teste=$this->validate($request, [
+        $teste = $this->validate($request, [
 
             'nome' => 'required|max:20',
             'cpfPaciente' => 'nullable|numeric|unique:patients',
@@ -64,14 +64,14 @@ class PatientController extends Controller
 
         ], [
             'nome.max' => 'Nome deve ter no maximo 20 caracter',
-            'cpfPaciente.numeric'=>'cpf do paciente deve ser numerico',
-            'cpfPaciente.unique'=>'cpf deve unico',
-            'Cpfresponsavel.numeric'=>'cpf do responsavel ser numerico',
-            'Cpfresponsavel.unique'=>'cpf deve ser unico',
+            'cpfPaciente.numeric' => 'cpf do paciente deve ser numerico',
+            'cpfPaciente.unique' => 'cpf deve unico',
+            'Cpfresponsavel.numeric' => 'cpf do responsavel ser numerico',
+            'Cpfresponsavel.unique' => 'cpf deve ser unico',
 
 
         ]);
-            $this->pacienteModel->addPaciente($request->all());
+        $this->pacienteModel->addPaciente($request->all());
 
 
         return view('home');
@@ -127,10 +127,10 @@ class PatientController extends Controller
 
         ], [
             'nome.max' => 'Nome deve ter no maximo 20 caracter',
-            'cpfPaciente.numeric'=>'cpf do paciente deve ser numerico',
-            'cpfPaciente.unique'=>'cpf deve unico',
-            'Cpfresponsavel.numeric'=>'cpf do responsavel ser numerico',
-            'Cpfresponsavel.unique'=>'cpf deve ser unico',
+            'cpfPaciente.numeric' => 'cpf do paciente deve ser numerico',
+            'cpfPaciente.unique' => 'cpf deve unico',
+            'Cpfresponsavel.numeric' => 'cpf do responsavel ser numerico',
+            'Cpfresponsavel.unique' => 'cpf deve ser unico',
 
 
         ]);
@@ -162,26 +162,32 @@ class PatientController extends Controller
     public function doandoProduto(Request $request, $idPacinete)
     {
 //        dd($request->all(),$idPacinete);
-
         // request esta vindo o id e quantidade
         $quantidade = $request->amount;
 
         //pego a quantidade da tabela
         $quantidadeTabelaProduto = Product::all()->find($request->idProduto)->amount;
 
-        // pego qual dodador fez a doação
-        $Patient = Patient::all()->find($idPacinete);
+        if ($request->amount <= 0 or $quantidadeTabelaProduto - $quantidade <=0) {
 
-        $Patient->products()->attach($request->idProduto, ['quantidadeDoada' => $request->amount]);
 
-        // faço o cadastro do produto
-        $produtos = Product::all()->find($request->idProduto)->update([
-            'amount' => $quantidadeTabelaProduto - $quantidade
-        ]);
+            return view('Patient.recebendoDoacao', compact('idPacinete'));
+        } else {
+
+            // pego qual dodador fez a doação
+            $Patient = Patient::all()->find($idPacinete);
+
+            $Patient->products()->attach($request->idProduto, ['quantidadeDoada' => $request->amount]);
+
+            // faço o cadastro do produto
+            $produtos = Product::all()->find($request->idProduto)->update([
+                'amount' => $quantidadeTabelaProduto - $quantidade
+            ]);
 
 //        dd($produtos);
 
-        return view('Patient.recebendoDoacao', compact('idPacinete'));
+            return view('Patient.recebendoDoacao', compact('idPacinete'));
+        }
     }
 
 

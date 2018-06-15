@@ -49,8 +49,8 @@
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle sidebar" data-toggle="push-menu" role="button">
-                      <span class="sr-only">{{ trans('adminlte::adminlte.toggle_navigation') }}</span>
+                <a href="#" role="button" data-toggle="push-menu" class="fas fa-align-justify" style="height: auto;margin-top:15px;margin-left:10.5px;color:#b8c7ce;font-size: 1.5em;">
+                    <span class="sr-only">Trocar navegação</span>
                 </a>
             @endif
                 <!-- Navbar Right Menu -->

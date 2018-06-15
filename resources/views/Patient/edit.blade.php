@@ -15,111 +15,121 @@
 
 @section('content')
 
+    <div class="col-sm-3"></div>
 
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Quick Example</h3>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-        <!-- /.box-header -->
-        <!-- form start -->
-        <form action="{{route('Patient.update',$paciente->id)}}" method="POST" class="form-horizontal">
+    <div class="col-sm-6">
 
-            @csrf
-            @method('PUT')
 
-            <div class="form-group row">
-                <label for="nome" class="col-md-3 control-label">Nome</label>
-                <div class="col-md-6">
-                    <input type="text" name="nome" class="form-control" id="nome"
-                           value="{{$paciente->nome or ''}}">
-                </div>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Editar Paciente &nbsp {{$paciente->nome}}</h3>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form action="{{route('Patient.update',$paciente->id)}}" method="POST" class="form-horizontal">
 
+                @csrf
+                @method('PUT')
 
-            <div class="form-group row">
-                <label for="cpfPaciente" class="col-md-3 control-label">Cpf Paciente</label>
-                <div class="col-md-6">
-                    <input type="text" name="cpfPaciente" class="form-control" id="cpfPaciente"
-                           value="{{$paciente->cpfPaciente or ''}}">
+                <div class="form-group row">
+                    <label for="nome" class="col-md-3 control-label">Nome</label>
+                    <div class="col-md-6">
+                        <input type="text" name="nome" class="form-control" id="nome"
+                               value="{{$paciente->nome or ''}}">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
-                <label for="nome" class="col-md-3 control-label">Responsavel</label>
-                <div class="col-md-6">
 
-                    <input type="text" name="responsavel" class="form-control" id="responsavel" required
-                           value="{{$paciente->responsavel or ''}}">
-
-                    <span class="help-block with-errors"></span>
+                <div class="form-group row">
+                    <label for="cpfPaciente" class="col-md-3 control-label">Cpf Paciente</label>
+                    <div class="col-md-6">
+                        <input type="text" name="cpfPaciente" class="form-control" id="cpfPaciente"
+                               value="{{$paciente->cpfPaciente or ''}}">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
-                <label for="Cpfresponsavel" class="col-md-3 control-label">Cpg Responsevel</label>
-                <div class="col-md-6">
-                    <input type="text" name="Cpfresponsavel" class="form-control" id="Cpfresponsavel"
-                           requiredvalue="{{$paciente->Cpfresponsavel or ''}}">
+                <div class="form-group row">
+                    <label for="nome" class="col-md-3 control-label">Responsavel</label>
+                    <div class="col-md-6">
 
-                    <span class="help-block with-errors"></span>
+                        <input type="text" name="responsavel" class="form-control" id="responsavel" required
+                               value="{{$paciente->responsavel or ''}}">
+
+                        <span class="help-block with-errors"></span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
-                <label class="col-md-3 control-label">Nececidade especial</label>
-                <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="Cpfresponsavel" class="col-md-3 control-label">Cpg Responsevel</label>
+                    <div class="col-md-6">
+                        <input type="text" name="Cpfresponsavel" class="form-control" id="Cpfresponsavel"
+                               required value="{{$paciente->Cpfresponsavel or ''}}">
 
-                    <select class="selected" name="especial" style="width: 100%"
-                            value="{{$paciente->especial}}">
-                        <option value="sim">Sim</option>
-                        <option value="nao">Nao</option>
-                    </select>
-
-
-                    <span class="help-block with-errors"></span>
+                        <span class="help-block with-errors"></span>
+                    </div>
                 </div>
-            </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 control-label">Nececidade especial</label>
+                    <div class="col-md-6">
+
+                        <select class="selected" name="especial" style="width: 100%"
+                                value="{{$paciente->especial}}">
+                            <option value="sim">Sim</option>
+                            <option value="nao">Nao</option>
+                        </select>
 
 
-            <div class="form-group row">
-                <label for="nome" class="col-md-3 control-label">Qual necessidade</label>
-                <div class="col-md-6">
-                    <input type="text" name="necessidade" class="form-control"
-                           id="necessidade" value="{{$paciente->necessidade}}">
-
-                    <span class="help-block with-errors"></span>
+                        <span class="help-block with-errors"></span>
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="form-group row">
-                <label for="cpf" class="col-md-3 control-label">Receita</label>
-                <div class="col-md-6">
-                    <input type="text" name="receita" class="form-control" id="receita"
-                           value="{{$paciente->receita}}">
-                    <span class="help-block with-errors"></span>
+                <div class="form-group row">
+                    <label for="nome" class="col-md-3 control-label">Qual necessidade</label>
+                    <div class="col-md-6">
+                        <input type="text" name="necessidade" class="form-control"
+                               id="necessidade" value="{{$paciente->necessidade}}">
+
+                        <span class="help-block with-errors"></span>
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="form-group row " style="margin-left: 93em ">
-                <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
-                        Save
+                <div class="form-group row">
+                    <label for="cpf" class="col-md-3 control-label">Receita</label>
+                    <div class="col-md-6">
+                        <input type="text" name="receita" class="form-control" id="receita"
+                               value="{{$paciente->receita}}">
+                        <span class="help-block with-errors"></span>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-primary btn-save">Salvar</button>
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><a href="{{route('home')}}"
+                                                                                          class="link">Voltar</a>
                     </button>
                 </div>
-            </div>
-        </form>
+
+
+            </form>
+        </div>
     </div>
+
+    <div class="col-sm-3"></div>
 
 
 

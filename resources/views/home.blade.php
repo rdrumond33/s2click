@@ -45,10 +45,10 @@
                     }
                     ?>
 
-                    <p>Quatidade em Stock:&nbsp;{{$teste}} </p>
+                    <p>Quatidade em Estoque:&nbsp;{{$teste}} </p>
                 </div>
                 <div class="icon">
-                    <i class="fa fa-shopping-cart"></i>
+                    <i class="fas fa-box"></i>
                 </div>
                 {{--<a href="#" class="small-box-footer">Mais informações <i class="fa fa-arrow-circle-right"></i></a>--}}
             </div>
@@ -63,7 +63,7 @@
                     <p>Doadores registrados</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-donate"></i>
+                    <i class="fas fa-users"></i>
                 </div>
                 {{--<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>--}}
             </div>

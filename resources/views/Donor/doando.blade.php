@@ -122,7 +122,12 @@
             responsive: true,
             dom: 'Bfrtip',
             buttons: [
-                'pdf',
+                {
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL',
+                    title:'Produtos doados por {{$doador->nome}}'
+                }
             ],
 
             language: {
