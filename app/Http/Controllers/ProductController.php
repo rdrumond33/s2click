@@ -56,13 +56,13 @@ class ProductController extends Controller
     {
 
         $this->validate($request, [
-        'nome' => 'required|max:20',
-        'marca' => 'required',
-        'descricaoProduto' => 'max:150',
+            'nome' => 'required|max:20',
+            'marca' => 'required',
+            'descricaoProduto' => 'max:150',
 
-    ], [
-        'nome.max' => 'Nome deve ter no maximo 20 caracter',
-    ]);
+        ], [
+            'nome.max' => 'Nome deve ter no maximo 20 caracter',
+        ]);
 
         $data = $request->all();
 
@@ -73,7 +73,7 @@ class ProductController extends Controller
 
     }
 
-    public function storeAdd(Request $request,$id)
+    public function storeAdd(Request $request, $id)
     {
 
         $this->validate($request, [
@@ -89,9 +89,9 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        $doador=Donor::find($id);
+        $doador = Donor::find($id);
 
-        return redirect()->route('Donor.Product.Show',$id);
+        return redirect()->route('Donor.Product.Show', $id);
 
 
     }
@@ -131,7 +131,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $teste=$this->validate($request, [
+        $teste = $this->validate($request, [
             'nome' => 'required|max:20',
             'marca' => 'required',
             'descricaoProduto' => 'max:150',
@@ -161,9 +161,6 @@ class ProductController extends Controller
 
     public function RelacinarDonorProduct(Request $request, $idDoador)
     {
-
-
-       
         // request esta vindo o id e quantidade
         $quantidade = $request->amount;
 
@@ -173,14 +170,24 @@ class ProductController extends Controller
         // pego qual dodador fez a doação
         $doador = Donor::all()->find($idDoador);
 
-        // faço o cadastro do produto
-        $produtos = Product::all()->find($request->state)->update([
-            'amount' => $quantidadeTabelaProduto + $quantidade
-        ]);
+        if ($quantidade <= 0) {
 
-        $doador->products()->attach($request->state, ['quantidade' => $request->amount]);
+            return view('Donor.doando', compact('doador'));
 
-        return view('Donor.doando', compact('doador'));
+        } else {
+
+
+
+            // faço o cadastro do produto
+            $produtos = Product::all()->find($request->state)->update([
+                'amount' => $quantidadeTabelaProduto + $quantidade
+            ]);
+
+            $doador->products()->attach($request->state, ['quantidade' => $request->amount]);
+
+            return view('Donor.doando', compact('doador'));
+        }
+
     }
 
     public function apiProduto()

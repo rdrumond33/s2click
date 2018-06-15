@@ -9,7 +9,8 @@
 
 ## Como instalar S2click
 <h5>1- Clonar o projeto usando o comando  do git -> clone https://github.com/rdrumond33/s2click.git.</h5>
-<h5>2-Vai ate a pasta com o git bash ou cmd e executa os comandos</h5>
+<h5>Colocar o arquivo no htt</h5>    
+<h5>3-Vai ate a pasta com o git bash ou cmd e executa os comandos</h5>
 <ul>
  <li>
  Digite o commando "composer install". Ele vai instalar todos os pacotes php necessários.

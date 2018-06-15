@@ -26,13 +26,13 @@
                 <div class="box-header with-border">
                     <h2 class="box-title">Produto doado</h2>
 
-                    <button type="button" class="fas fa-plus-circle btn btn-default" aria-hidden="true"
-                            data-toggle="modal"
-                            data-target="#modal-formAddProduto" style="float: right"></button>
+                    <a onclick="addForm()" class="btn btn-default" style="float: right;margin-right: 5px"><i
+                                class="fab fa-product-hunt" style="padding-right: 10px"></i>Adicionar</a>
                 </div>
                 <div class="box-body">
 
-                    <form action="{{route('Product.RelacinarDonorProduct',$doador->id)}}" method="POST" class="form-horizontal">
+                    <form action="{{route('Product.RelacinarDonorProduct',$doador->id)}}" method="POST"
+                          class="form-horizontal">
 
                         @csrf
 
@@ -74,7 +74,8 @@
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Produtos Doados pelo &nbsp <strong>{{\App\Donor::find($doador->id)->nome}}</strong></h3>
+                    <h3 class="box-title">Produtos Doados pelo
+                        <strong>{{\App\Donor::find($doador->id)->nome}}</strong></h3>
 
 
                 </div>
@@ -126,7 +127,7 @@
                     extend: 'pdfHtml5',
                     orientation: 'landscape',
                     pageSize: 'LEGAL',
-                    title:'Produtos doados por {{$doador->nome}}'
+                    title: 'Produtos doados por {{$doador->nome}}'
                 }
             ],
 
@@ -165,6 +166,11 @@
 
         });
 
+        function addForm() {
+            $('#modal-formAddProduto').modal('show');
+            $('#modal-formAddProduto form')[0].reset();
+            $('.modal-title').text('Adicionar Produto');
+        }
 
     </script>
 @stop

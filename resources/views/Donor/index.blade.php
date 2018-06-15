@@ -22,8 +22,8 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Doadores</h3>
-                    <a onclick="addForm()" class="btn btn-default" style="float: right"><i
-                                class="fas fa-plus-circle"></i>Adicionar</a>
+                    <a onclick="addForm()" class="btn btn-default" style="float: right;margin-right: 5px"><i
+                                class="fab fa-product-hunt" style="padding-right: 10px"></i>Adicionar</a>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
