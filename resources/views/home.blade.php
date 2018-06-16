@@ -143,6 +143,7 @@
                                        style="width:100%">
                                     <thead>
                                     <tr>
+                                        <th>Codigo</th>
                                         <th>Nome</th>
                                         <th>Cpf Paciente</th>
                                         <th>Responsavel</th>
@@ -171,7 +172,10 @@
     </div>
 
         @include('Patient.formPatient')
-
+<div class="row">
+    @include('Reserva.index')
+</div>
+    @include('Reserva.formReserva')
 
 
 
@@ -210,10 +214,10 @@
             },
             ajax: "{{route('Patient.Api.getDatablePatient')}}",
             columns: [
-
-                {data: 'nome', orderable: false, searchable: true},
-                {data: 'cpfPaciente', orderable: false, searchable: true},
-                {data: 'responsavel', orderable: false, searchable: false},
+                {data: 'id', orderable: true},
+                {data: 'nome', orderable: true},
+                {data: 'cpfPaciente', orderable: false},
+                {data: 'responsavel', orderable: false},
                 {data: 'Cpfresponsavel', orderable: false, searchable: true},
 
                 {data: 'especiais', orderable: false, searchable: false},
@@ -275,6 +279,12 @@
             $('#modal-formAddProduto').modal('show');
             $('#modal-formAddProduto form')[0].reset();
             $('.modal-title').text('Adicionar Produto');
+        }
+
+        function addFormReserva() {
+            $('#modal-formReserva').modal('show');
+            $('#modal-formReserva form')[0].reset();
+            $('.modal-title').text('Adicionar Reserva');
         }
 
         function deletproduct(id) {

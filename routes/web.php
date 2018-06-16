@@ -76,3 +76,12 @@ Route::group(['prefix' => 'patient'], function () {
 
 
 });
+
+Route::group(['prefix' => 'reserve'], function () {
+
+
+    Route::post('/', 'ReserveController@store')->name('Reseve.store');
+
+
+
+});
