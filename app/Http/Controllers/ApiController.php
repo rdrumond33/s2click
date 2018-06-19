@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Reserve;
 use Illuminate\Http\Request;
 use App\Donor;
 use App\Product;
@@ -27,7 +28,7 @@ class ApiController extends Controller
             ->addColumn('action', function ($donors) {
                 return
                     '<a href="donor/product/create/' . $donors->id . '" class="btn btn-xs btn-outline-info "><i class="fas fa-eye" style="font-size: 1.5em"></i></a>' .
-                    '<a href="donor/'.$donors->id.'/edit"  class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
+                    '<a href="donor/' . $donors->id . '/edit"  class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
                     '<a href="#" onclick="deletDonor(' . $donors->id . ')" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt"style="font-size: 1.5em" ></i></a>';
 
             })->toJson();
@@ -57,6 +58,29 @@ class ApiController extends Controller
             ->toJson();
     }
 
+    public function getTableReserva()
+    {
+
+
+        $reservas = Reserve::all();
+
+
+        return datatables()->of($reservas)
+            ->addColumn('NomePaciente', function ($reservas) {
+                return Patient::find($reservas->idPaciente)->nome;
+            })
+            ->addColumn('NomeProduto', function ($reservas) {
+                return Product::find($reservas->idProduto)->nome;
+            })
+            ->addColumn('action', function ($reservas) {
+                return
+//                    '<a href="patient/' . $pacientes->id . '/Doando" class="btn btn-xs btn-outline-info "><i class="fas fa-eye" style="font-size: 1.5em"></i></a>' .
+                    '<a onclick="cancelar(' . $reservas->id . ')"class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
+                    '<a onclick="Confirmar(' . $reservas->id . ')" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt"style="font-size: 1.5em" ></i></a>';
+            })
+            ->toJson();
+
+    }
 
     public function getDatablePatient()
     {
@@ -98,7 +122,7 @@ class ApiController extends Controller
         return datatables()->of($product)
             ->addColumn('action', function ($product) {
                 return
-                    '<a href="product/'.$product->id.'/edit"  class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
+                    '<a href="product/' . $product->id . '/edit"  class="btn btn-xs btn-outline-info " ><i class="fas fa-pencil-alt" style="font-size: 1.5em"></i></a>' .
                     '<a href="#" onclick="deletproduct(' . $product->id . ')" class="btn btn-xs btn-outline-info " ><i class="far fa-trash-alt" style="font-size: 1.5em"></i> </a>';
             })
             ->editColumn('descricaoProduto', '{!! str_limit($descricaoProduto, 30) !!}')
@@ -129,7 +153,6 @@ class ApiController extends Controller
 
 
     }
-
 
 
 }

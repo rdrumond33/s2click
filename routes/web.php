@@ -77,11 +77,18 @@ Route::group(['prefix' => 'patient'], function () {
 
 });
 
-Route::group(['prefix' => 'reserve'], function () {
-
-
-    Route::post('/', 'ReserveController@store')->name('Reseve.store');
-
-
-
-});
+//
+//Route::group(['prefix' => 'reserve'], function () {
+//
+//
+//    Route::post('/', 'ReserveController@store')->name('Reseve.store');
+//
+//    Route::delete('/{id}', 'ReserveController@destroy')->name('Reseve.destroy');
+//    Route::delete('/{id}/cancelar', 'ReserveController@destroy')->name('Reseve.cancelar');
+//
+//
+//    //API
+//    Route::get('/api', 'ApiController@getTableReserva')->name('Reserva.getTable');
+//
+//
+//});

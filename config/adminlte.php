@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'logo' => '<img src="/s2click/public/logo.png">',
+    'logo' => '<img src="/s2click/public/logo.png" style="width: 100px;height:40px">',
 
     'logo_mini' => ' <img src="/s2click/public/s2icon.ico">',
 

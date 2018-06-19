@@ -63,6 +63,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="nome" class="col-md-3 control-label">Produto</label>
+                        <div class="col-md-6">
+                            <select class="SelecionarProduto" name="idProduto" style="width: 100%">
+                                @foreach(\App\Product::all() as $produto)
+                                    <option value="{{$produto->id}}">{{$produto->nome.' '.$produto->marca}}
+                                        &nbsp;<strong>Qdt:&nbsp;{{$produto->amount}}</strong></option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="cpf" class="col-md-3 control-label">quantidade</label>
                         <div class="col-md-6">
                             <input type="number" name="quantidade" class="form-control" id="quantidade"
@@ -71,9 +83,7 @@
                         </div>
 
 
-
                     </div>
-
 
 
                 </div> {{--fim modal body --}}

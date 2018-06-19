@@ -12,15 +12,20 @@
                 <div class="row">
                     <div class="col-sm-12">
 
-                        <table id="tableProduto" class="table table-striped table-bordered" style="width:100%">
+                        <table id="tableReserva" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                             <tr>
-                                <th>Nome</th>
+
+
+                                <th>Nome Paciente</th>
+                                <th>Responsavel</th>
                                 <th>Data Reserva</th>
-                                <th>Nome produto</th>
+                                <th>horaReserva</th>
+                                <th>nome produto</th>
                                 <th>Quantidade</th>
+                                <th>status</th>
                                 <th>Data de cadastro</th>
-                                <th></th>
+                            <th></th>
                             <tfoot></tfoot>
                         </table>
                     </div>

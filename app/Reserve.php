@@ -15,7 +15,8 @@ class Reserve extends Model
         'horaReserva',
         'Responsavel',
         'quantidade',
-        'status'
+        'status',
+        'idProduto',
 
     ];
 }

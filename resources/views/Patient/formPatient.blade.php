@@ -49,7 +49,7 @@
                         <label for="nome" class="col-md-3 control-label">Responsavel</label>
                         <div class="col-md-6">
 
-                            <input type="text" name="responsavel" class="form-control" id="responsavel" required value="{{old('responsavel')}}">
+                            <input type="text" name="responsavel" class="form-control" id="responsavel"  value="{{old('responsavel')}}">
 
                             <span class="help-block with-errors"></span>
                         </div>
@@ -58,7 +58,7 @@
                     <div class="form-group">
                         <label for="Cpfresponsavel" class="col-md-3 control-label">Cpg Responsevel</label>
                         <div class="col-md-6">
-                            <input type="text" name="Cpfresponsavel" class="form-control" id="Cpfresponsavel" required value="{{old('Cpfresponsavel')}}">
+                            <input type="text" name="Cpfresponsavel" class="form-control" id="Cpfresponsavel"  value="{{old('Cpfresponsavel')}}">
 
                             <span class="help-block with-errors"></span>
                         </div>

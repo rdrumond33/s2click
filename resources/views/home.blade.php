@@ -112,8 +112,8 @@
                                         <th>Marca</th>
                                         <th>Categoria</th>
                                         <th>DescricaoProduto</th>
-                                        <th>Amount</th>
-                                        <th>Data de cadastro</th>
+                                        <th>Quantidade</th>
+                                        {{--<th>Data de cadastro</th>--}}
                                         <th></th>
                                     <tfoot></tfoot>
                                 </table>
@@ -143,7 +143,7 @@
                                        style="width:100%">
                                     <thead>
                                     <tr>
-                                        <th>Codigo</th>
+                                        {{--<th>Codigo</th>--}}
                                         <th>Nome</th>
                                         <th>Cpf Paciente</th>
                                         <th>Responsavel</th>
@@ -173,9 +173,9 @@
 
         @include('Patient.formPatient')
 <div class="row">
-    @include('Reserva.index')
+    {{--@include('Reserva.index')--}}
 </div>
-    @include('Reserva.formReserva')
+    {{--@include('Reserva.formReserva')--}}
 
 
 
@@ -184,6 +184,10 @@
 @section('js')
 
     <script>
+
+        $(document).ready(function() {
+            $('.SelecionarProduto').select2();
+        });
 
         var $table = $('#tablePaciente').DataTable({
             processing: true,
@@ -214,7 +218,7 @@
             },
             ajax: "{{route('Patient.Api.getDatablePatient')}}",
             columns: [
-                {data: 'id', orderable: true},
+                // {data: 'id', orderable: true},
                 {data: 'nome', orderable: true},
                 {data: 'cpfPaciente', orderable: false},
                 {data: 'responsavel', orderable: false},
@@ -267,12 +271,58 @@
                 {data: 'categoria'},
                 {data: 'descricaoProduto'},
                 {data: 'amount'},
-                {data: 'created_at'},
+                // {data: 'created_at'},
 
                 {data: 'action', orderable: false, searchable: false}
 
             ],
         });
+
+        {{--var $table = $('#tableReserva').DataTable({--}}
+            {{--processing: true,--}}
+            {{--serverSide: true,--}}
+            {{--responsive: true,--}}
+            {{--language: {--}}
+                {{--sEmptyTable: "Nenhum registro encontrado",--}}
+                {{--sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",--}}
+                {{--sInfoEmpty: "Mostrando 0 até 0 de 0 registros",--}}
+                {{--sInfoFiltered: "(Filtrados de _MAX_ registros)",--}}
+                {{--sInfoPostFix: "",--}}
+                {{--sInfoThousands: ".",--}}
+                {{--sLengthMenu: "_MENU_ resultados por página",--}}
+                {{--sLoadingRecords: "Carregando...",--}}
+                {{--sProcessing: "Processando...",--}}
+                {{--sZeroRecords: "Nenhum registro encontrado",--}}
+                {{--sSearch: "Pesquisar",--}}
+                {{--oPaginate: {--}}
+                    {{--sNext: "Próximo",--}}
+                    {{--sPrevious: "Anterior",--}}
+                    {{--sFirst: "Primeiro",--}}
+                    {{--sLast: "Último"--}}
+                {{--},--}}
+                {{--oAria: {--}}
+                    {{--sSortAscending: ": Ordenar colunas de forma ascendente",--}}
+                    {{--sSortDescending: ": Ordenar colunas de forma descendente"--}}
+                {{--}--}}
+            {{--},--}}
+            {{--ajax: "{{route('Reserva.getTable')}}",--}}
+            {{--columns: [--}}
+                {{--{data: 'NomePaciente' },--}}
+                {{--{data: 'Responsavel'},--}}
+                {{--{data: 'dataReserva'},--}}
+                {{--{data: 'horaReserva'},--}}
+                {{--{data: 'NomeProduto' },--}}
+                {{--{data: 'quantidade'},--}}
+                {{--{data: 'status'},--}}
+                {{--{data: 'created_at'},--}}
+                {{--{data: 'action'},--}}
+
+
+
+
+            {{--],--}}
+
+        {{--});--}}
 
 
         function addFormProduto() {
@@ -286,6 +336,64 @@
             $('#modal-formReserva form')[0].reset();
             $('.modal-title').text('Adicionar Reserva');
         }
+
+
+
+        function cancelar(id) {
+            console.log(id);
+            var popup = confirm("Deseja mesmo canselar ");
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+            if (popup == true) {
+
+                $.ajax({
+                    url: "{{url('reserve')}}" + '/' + id + '/cancelar',
+                    type: "POST",
+                    data: {'_method': 'DELETE', '_token': csrf_token},
+                    success: function (data) {
+                        $('#tableReserva').DataTable().ajax.reload();
+                        window.location.reload();
+
+                    },
+                    error: function () {
+                        alert("ERRO")
+                    }
+
+                });
+
+
+            }
+
+
+        }
+        function Confirmar(id) {
+            console.log(id);
+            var popup = confirm("Deseja mesmo ");
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+            if (popup == true) {
+
+                $.ajax({
+                    url: "{{url('reserve')}}" + '/' + id,
+                    type: "POST",
+                    data: {'_method': 'DELETE', '_token': csrf_token},
+                    success: function (data) {
+                        $('#tableReserva').DataTable().ajax.reload();
+                        window.location.reload();
+
+                    },
+                    error: function () {
+                        alert("ERRO")
+                    }
+
+                });
+
+
+            }
+
+
+        }
+
 
         function deletproduct(id) {
             var popup = confirm("Deseja mesmo deletar este Produto");
